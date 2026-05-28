@@ -20,6 +20,8 @@ var (
 	DBErrForeignConstraint = errors.New("failed on foreign key constraint")
 	DBErrBadArgument       = errors.New("bad argument passed")
 	DBErrSerialization     = errors.New("failed to serialize output")
+	DBErrFatal             = errors.New("fatal internal error")
+	DBErrNotFound          = errors.New("found no rows")
 )
 
 func (dbErr DBError) Error() string {

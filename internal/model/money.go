@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"strconv"
+	"strings"
 )
 
 type CostUnit string
@@ -107,4 +109,35 @@ func (m Money) String() string {
 
 func (m Money) Serialize() string {
 	return fmt.Sprintf("%s%d", m.currency.Symbol(), m.amount)
+}
+
+func MoneyFromString(value string) (*Money, error) {
+	if value == "" {
+		return nil, errors.New("empty money string")
+	}
+
+	s := strings.Split(value, "")
+	if len(s) < 2 {
+		return nil, errors.New("invalid money string")
+	}
+
+	symbol := s[0]
+
+	switch symbol {
+	case "$", "£", "€":
+	default:
+		return nil, fmt.Errorf("invalid currency symbol: %s", symbol)
+	}
+
+	valueStr := strings.Join(s[1:], "")
+	moneyAmount, err := strconv.ParseInt(valueStr, 10, 64)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse money value: %w", err)
+	}
+
+	return &Money{
+		amount:    uint64(moneyAmount),
+		precision: 2,
+		currency:  CurrencySymbol(symbol),
+	}, nil
 }

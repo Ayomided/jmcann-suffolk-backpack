@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"adediiji.uk/jmcann-suffolk-backpack-task/internal/error"
+	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -152,6 +153,10 @@ create table if not exists job_operative_requirement (
 );
 `
 
+type AppStorage struct {
+	DB *sql.DB
+}
+
 func OpenDBConnection(db_path string) (*sql.DB, *error.DBError) {
 	db, err := sql.Open("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", db_path))
 	if err != nil {
@@ -179,4 +184,10 @@ func SetupDB(db *sql.DB, db_path string) *error.DBError {
 		}
 	}
 	return nil
+}
+
+func UUIDWithString() (uuid.UUID, string) {
+	uuidd := uuid.New()
+
+	return uuidd, uuidd.String()
 }
