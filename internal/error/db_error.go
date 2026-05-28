@@ -13,12 +13,13 @@ type DBError struct {
 }
 
 var (
-	DBErrQuery             error = errors.New("failed to select")
-	DBErrInsert            error = errors.New("failed to insert")
-	DBErrUpdate            error = errors.New("failed to insert")
-	DBErrForeignConstraint error = errors.New("failed on foreign key constraint")
-	DBErrBadArgument       error = errors.New("bad argument passed")
-	DBErrSerialization     error = errors.New("failed to serialize output")
+	DBErrInit              = errors.New("db init failed")
+	DBErrQuery             = errors.New("failed to select")
+	DBErrInsert            = errors.New("failed to insert")
+	DBErrUpdate            = errors.New("failed to insert")
+	DBErrForeignConstraint = errors.New("failed on foreign key constraint")
+	DBErrBadArgument       = errors.New("bad argument passed")
+	DBErrSerialization     = errors.New("failed to serialize output")
 )
 
 func (dbErr DBError) Error() string {
