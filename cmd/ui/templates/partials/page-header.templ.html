@@ -1,0 +1,20 @@
+{{define "page-header"}}
+<div class="page-header">
+    <div class="page-header-left">
+        <a href="/dashboard" class="back-link" onclick="history.back(); return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path
+                    d="M6.353 11.152a1.2 1.2 0 0 0 0 1.699l7.2 7.2a1.202 1.202 0 0 0 1.699-1.699L8.899 12l6.349-6.353a1.202 1.202 0 0 0-1.699-1.699l-7.2 7.2z" />
+            </svg>
+
+        </a>
+        <h1 class="page-title">{{.Title}}</h1>
+    </div>
+    <div class="user-info">
+        <span class="user-name">{{.UserName}}</span>
+        <span class="user-role">{{.UserRole}}</span>
+        <a href="/logout" class="action-link action-link--sm">Logout</a>
+    </div>
+</div>
+<hr class="divider">
+{{end}}

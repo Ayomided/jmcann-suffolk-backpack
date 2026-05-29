@@ -4,11 +4,12 @@ import (
 	"log"
 
 	"adediiji.uk/jmcann-suffolk-backpack-task/internal/db"
+	"adediiji.uk/jmcann-suffolk-backpack-task/internal/ui"
 )
 
 const (
-	SerConstAccessTokenExpiry  = 60
-	SerConstRefreshTokenExpiry = 168
+	SerConstAccessTokenExpiryMinutes = 60
+	SerConstRefreshTokenExpiryHours  = 720
 )
 
 type AppConfig struct {
@@ -17,9 +18,9 @@ type AppConfig struct {
 }
 
 type JMcCannBackPackApp struct {
-	ErrorLog *log.Logger
-	InfoLog  *log.Logger
-	DB       *db.AppStorage
-	Config   AppConfig
-	// TemplateCache *ui.TemplateCache
+	ErrorLog      *log.Logger
+	InfoLog       *log.Logger
+	DB            *db.AppStorage
+	Config        AppConfig
+	TemplateCache *ui.TemplateCache
 }

@@ -20,6 +20,25 @@ type contextKey string
 const contextKeyUserRole contextKey = "userRole"
 const contextKeyUserID contextKey = "userID"
 
+func (app *JMcCannBackPackApp) LoginForm(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		data := LoginFormData{
+			FormFields: NewFormFields(),
+		}
+
+		app.render(w, "loginform.templ.html", 200, data)
+		return
+	}
+
+	if r.Method == http.MethodPost {
+		app.LoginFormPost(w, r)
+		return
+	}
+
+	w.Header().Set("Allow", "GET, POST")
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+}
+
 func (app *JMcCannBackPackApp) LoginFormPost(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		app.serverError(w, err)
@@ -51,13 +70,13 @@ func (app *JMcCannBackPackApp) LoginFormPost(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	accessToken, err := auth.CreateAccessToken(user, app.Config.JWTSecret, SerConstAccessTokenExpiry)
+	accessToken, err := auth.CreateAccessToken(user, app.Config.JWTSecret, SerConstAccessTokenExpiryMinutes)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	refreshToken, err := auth.CreateRefreshToken(user, app.Config.JWTSecret, SerConstRefreshTokenExpiry)
+	refreshToken, err := auth.CreateRefreshToken(user, app.Config.JWTSecret, SerConstRefreshTokenExpiryHours)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -70,7 +89,7 @@ func (app *JMcCannBackPackApp) LoginFormPost(w http.ResponseWriter, r *http.Requ
 		HttpOnly: true,
 		Secure:   app.Config.SecureCookie,
 		SameSite: http.SameSiteLaxMode,
-		MaxAge:   SerConstAccessTokenExpiry * 60,
+		MaxAge:   SerConstAccessTokenExpiryMinutes * 60,
 	})
 
 	http.SetCookie(w, &http.Cookie{
@@ -80,7 +99,7 @@ func (app *JMcCannBackPackApp) LoginFormPost(w http.ResponseWriter, r *http.Requ
 		HttpOnly: true,
 		Secure:   app.Config.SecureCookie,
 		SameSite: http.SameSiteLaxMode,
-		MaxAge:   SerConstRefreshTokenExpiry * 3600,
+		MaxAge:   SerConstRefreshTokenExpiryHours * 3600,
 	})
 
 	http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
@@ -164,12 +183,12 @@ func (app *JMcCannBackPackApp) RefreshToken(w http.ResponseWriter, r *http.Reque
 		app.serverError(w, err)
 		return
 	}
-	accessToken, err := auth.CreateAccessToken(user, app.Config.JWTSecret, SerConstAccessTokenExpiry)
+	accessToken, err := auth.CreateAccessToken(user, app.Config.JWTSecret, SerConstAccessTokenExpiryMinutes)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
-	refreshToken, err := auth.CreateRefreshToken(user, app.Config.JWTSecret, SerConstRefreshTokenExpiry)
+	refreshToken, err := auth.CreateRefreshToken(user, app.Config.JWTSecret, SerConstRefreshTokenExpiryHours)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -182,7 +201,7 @@ func (app *JMcCannBackPackApp) RefreshToken(w http.ResponseWriter, r *http.Reque
 		HttpOnly: true,
 		Secure:   app.Config.SecureCookie,
 		SameSite: http.SameSiteLaxMode,
-		MaxAge:   SerConstAccessTokenExpiry * 60,
+		MaxAge:   SerConstAccessTokenExpiryMinutes * 60,
 	})
 
 	http.SetCookie(w, &http.Cookie{
@@ -192,7 +211,7 @@ func (app *JMcCannBackPackApp) RefreshToken(w http.ResponseWriter, r *http.Reque
 		HttpOnly: true,
 		Secure:   app.Config.SecureCookie,
 		SameSite: http.SameSiteLaxMode,
-		MaxAge:   SerConstRefreshTokenExpiry * 3600,
+		MaxAge:   SerConstRefreshTokenExpiryHours * 3600,
 	})
 
 	redirectTo := r.URL.Query().Get("redirect")

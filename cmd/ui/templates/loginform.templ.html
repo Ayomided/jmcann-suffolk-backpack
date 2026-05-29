@@ -1,0 +1,42 @@
+{{define "title"}}Login — Repair Jobs System{{end}}
+{{define "content"}}
+<div class="page-login">
+    <div class="login-form">
+        <div class="login-header">
+            <hr>
+            <h1>Login to <span class="brand">McCann</span> worker app</h1>
+        </div>
+        <form method="POST" action="/login">
+            <div class="field">
+                <input type="email" name="email" placeholder="Email" value="{{.Values.email}}" autocomplete="username"
+                    class="input{{if .Errors.email}} input--error{{end}}">
+                {{if .Errors.email}}
+                <span class="field-error" data-error="email">{{.Errors.email}}</span>
+                {{end}}
+            </div>
+            <div class="field">
+                <div class="input-with-action">
+                    <input type="password" name="password" id="passwordInput" placeholder="Password"
+                        autocomplete="current-password" class="input{{if .Errors.password}} input--error{{end}}">
+                    <button type="button" class="show-password" onclick="togglePassword()">show</button>
+                </div>
+                {{if .Errors.password}}
+                <span class="field-error" data-error="password">{{.Errors.password}}</span>
+                {{end}}
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Login</button>
+        </form>
+    </div>
+    <div class="login-footer">
+        <img src="/static/img/mccann-logo.svg" alt="McCann" class="logo">
+    </div>
+</div>
+<script>
+    function togglePassword() {
+        const input = document.getElementById('passwordInput');
+        const btn = document.querySelector('.show-password');
+        input.type = input.type === 'password' ? 'text' : 'password';
+        btn.textContent = input.type === 'password' ? 'show' : 'hide';
+    }
+</script>
+{{end}}

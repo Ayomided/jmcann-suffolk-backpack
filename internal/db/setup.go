@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"adediiji.uk/jmcann-suffolk-backpack-task/internal/error"
+	appError "adediiji.uk/jmcann-suffolk-backpack-task/internal/error"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -157,10 +157,10 @@ type AppStorage struct {
 	DB *sql.DB
 }
 
-func OpenDBConnection(db_path string) (*sql.DB, *error.DBError) {
+func OpenDBConnection(db_path string) (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", fmt.Sprintf("file:%s?_foreign_keys=on", db_path))
 	if err != nil {
-		return nil, &error.DBError{
+		return nil, &appError.DBError{
 			Context: "OpenDBConnection",
 			Values:  []string{},
 			Action:  "open connection",
@@ -172,10 +172,10 @@ func OpenDBConnection(db_path string) (*sql.DB, *error.DBError) {
 	return db, nil
 }
 
-func SetupDB(db *sql.DB, db_path string) *error.DBError {
+func SetupDB(db *sql.DB) error {
 	_, err := db.Exec(initStatment)
 	if err != nil {
-		return &error.DBError{
+		return &appError.DBError{
 			Context: "SetupDB",
 			Values:  []string{},
 			Action:  "run create tables migration",

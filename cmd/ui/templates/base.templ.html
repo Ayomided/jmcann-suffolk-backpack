@@ -1,0 +1,27 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{block "title" .}}Repair Jobs System{{end}}</title>
+    <link rel="stylesheet" href="/static/css/global.css">
+</head>
+
+<body>
+    <div class="page">
+        <nav class="navbar">
+            <a href="/dashboard"><span class="navbar-title">Repair Jobs System</span></a>
+            <img src="/static/img/mccann-logo.svg" alt="McCann" class="navbar-logo">
+        </nav>
+        {{block "content" .}}{{end}}
+        <footer class="page-footer">
+            <span>KTP Associate Task</span>
+        </footer>
+    </div>
+    <!-- <script src="/static/js/main.js"></script> -->
+</body>
+
+</html>
+{{end}}

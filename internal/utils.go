@@ -57,3 +57,16 @@ func (app *JMcCannBackPackApp) clientError(w http.ResponseWriter, status int) {
 		})
 	}
 }
+
+type Item interface {
+	Id() string
+}
+
+func getItem[T Item](key string, item []T) *T {
+	for _, t := range item {
+		if t.Id() == key {
+			return &t
+		}
+	}
+	return nil
+}
