@@ -28,6 +28,7 @@ type Operative struct {
 	Email  string
 	Phone  string
 	Trade  *string
+	Rate   *Money
 }
 
 type OperativeRate struct {

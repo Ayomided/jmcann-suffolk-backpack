@@ -1,0 +1,118 @@
+{{define "title"}}{{.Job.Name}} — Repair Jobs System{{end}} {{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <section class="detail-section">
+        <h2 class="section-title">Details</h2>
+        <div class="detail-row">
+            <span class="detail-label">Ref</span>
+            <span class="detail-value">{{.Job.Reference}}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Status</span>
+            <span class="badge badge--{{.Job.Status}}">{{.Job.Status}}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Site</span>
+            <span class="detail-value">{{.Site.Name}}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Start Date</span>
+            <span class="detail-value">{{humanDate .Job.StartDatetime}}</span>
+        </div>
+    </section>
+
+    <section class="detail-section">
+        <div class="section-header">
+            <h2 class="section-title">Sessions</h2>
+            {{if (eq .Job.Status "active") }}
+            <a href="/sessions/new?job_id={{.Job.ID}}" class="action-link">Mark Session</a>
+            {{end}}
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Session Date ⇅</th>
+                    <th>Start Time ⇅</th>
+                    <th>End Time ⇅</th>
+                    <th>Submission By ⇅</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Sessions}}
+                <tr>
+                    <td><a class="action-link" href="/sessions/{{.ID}}">{{humanDate .SessionDate}}</a></td>
+                    <td>{{humanDate .StartTime}}</td>
+                    <td>{{if .EndTime}}{{humanDate .EndTime}}{{else}}-{{end}}</td>
+                    <td>{{if .SubmittedBy}}{{.SubmittedBy}}{{else}}-{{end}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="4" class="empty-state">No sessions recorded yet</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="detail-section">
+        <h2 class="section-title">Operatives</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Operative Name ⇅</th>
+                    <th>Trade ⇅</th>
+                    <th>Email ⇅</th>
+                    <th>Rate ⇅</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Operatives}}
+                <tr>
+                    <td>{{.Name}}</td>
+                    <td>{{.Trade}}</td>
+                    <td>{{.Email}}</td>
+                    <td>{{.Rate}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="4" class="empty-state">No operatives assigned</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+
+    {{if .IsQS}}
+    <section class="detail-section">
+        <div class="section-header">
+            <h2 class="section-title">Cost Summary</h2>
+            {{if eq .Job.Status "submitted"}}
+            <form method="POST" action="/jobs/{{.Job.ID}}/calculate">
+                <button type="submit" class="btn btn--primary">Calculate Cost</button>
+            </form>
+            {{end}}
+        </div>
+        {{if .Job.TotalCost}}
+        <div class="detail-row detail-row--total">
+            <span class="detail-label">Total Cost</span>
+            <span class="detail-value">{{.Job.TotalCost}}</span>
+        </div>
+        {{end}}
+        <div class="status-actions">
+            {{if eq .Job.Status "active"}}
+            <form method="POST" action="/jobs/{{.Job.ID}}/status">
+                <input type="hidden" name="status" value="completed" />
+                <button type="submit" class="btn btn--secondary">Mark Complete</button>
+            </form>
+            {{end}} {{if eq .Job.Status "completed"}}
+            <form method="POST" action="/jobs/{{.Job.ID}}/status">
+                <input type="hidden" name="status" value="approved" />
+                <button type="submit" class="btn btn--primary">Approve</button>
+            </form>
+            {{end}}
+        </div>
+    </section>
+    {{end}}
+</main>
+{{end}}

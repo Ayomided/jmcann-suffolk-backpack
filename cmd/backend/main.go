@@ -76,12 +76,54 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
+
 	fileserver := http.FileServer(http.Dir("./cmd/ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileserver))
+	mux.HandleFunc("POST /refresh", app.RefreshToken)
 	mux.HandleFunc("GET /login", app.LoginForm)
 	mux.HandleFunc("POST /login", app.LoginFormPost)
 
-	// protected := http.NewServeMux()
+	protected := http.NewServeMux()
+
+	protected.HandleFunc("GET /dashboard", app.Dashboard)
+	protected.HandleFunc("GET /logout", app.Logout)
+
+	protected.HandleFunc("GET /jobs", app.JobsList)
+	protected.HandleFunc("GET /jobs/new", app.JobCreate)
+	protected.HandleFunc("POST /jobs/new", app.JobCreatePost)
+	protected.HandleFunc("GET /jobs/{id}", app.JobView)
+	protected.HandleFunc("POST /jobs/{id}/status", app.JobUpdateStatus)
+	protected.HandleFunc("POST /jobs/{id}/delete", app.JobDelete)
+	protected.HandleFunc("POST /jobs/{id}/calculate", app.JobCalculateCost)
+
+	protected.HandleFunc("GET /operatives", app.OperativesList)
+	protected.HandleFunc("GET /operatives/new", app.OperativeCreate)
+	protected.HandleFunc("POST /operatives/new", app.OperativeCreatePost)
+	protected.HandleFunc("GET /operatives/{id}", app.OperativeView)
+	protected.HandleFunc("POST /operatives/{id}", app.OperativeUpdate)
+	protected.HandleFunc("POST /operatives/{id}/delete", app.OperativeDelete)
+	protected.HandleFunc("GET /operatives/{id}/rates", app.OperativeRateHistory)
+	protected.HandleFunc("POST /operatives/{id}/rates", app.OperativeRateCreate)
+
+	protected.HandleFunc("GET /resources", app.ResourcesList)
+	protected.HandleFunc("GET /resources/new", app.ResourceCreate)
+	protected.HandleFunc("POST /resources/new", app.ResourceCreatePost)
+	protected.HandleFunc("GET /resources/{id}", app.ResourceView)
+	protected.HandleFunc("POST /resources/{id}", app.ResourceUpdate)
+	protected.HandleFunc("POST /resources/{id}/delete", app.ResourceDelete)
+	protected.HandleFunc("GET /resources/{id}/rates", app.ResourceRateHistory)
+	protected.HandleFunc("POST /resources/{id}/rates", app.ResourceRateCreate)
+
+	protected.HandleFunc("GET /sessions/new", app.SessionCreate)
+	protected.HandleFunc("POST /sessions/new", app.SessionCreatePost)
+	protected.HandleFunc("GET /sessions/{id}", app.SessionView)
+	protected.HandleFunc("POST /sessions/{id}/submit", app.SessionSubmit)
+
+	protected.HandleFunc("GET /sessions/{id}/resources/new", app.JobResourceCreate)
+	protected.HandleFunc("POST /sessions/{id}/resources/new", app.JobResourceCreatePost)
+	protected.HandleFunc("POST /sessions/{id}/resources/{resId}", app.JobResourceUpdate)
+
+	mux.Handle("/", app.RequireAuth(protected))
 
 	srv := &http.Server{
 		Addr:     *addr,

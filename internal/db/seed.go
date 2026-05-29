@@ -22,7 +22,7 @@ func Seed(app *AppStorage, secret string) error {
 	operativeIDs := make([]*uuid.UUID, 0)
 	operativeNames := []string{"John Hamm", "Sarah Okafor", "Marcus Webb", "Diane Fletcher", "Ray Kowalski"}
 	operativeTrades := []string{"Electrician", "Traffic Management", "Civil Engineer", "Street Lighting Engineer", "Cable Jointer"}
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		email := fmt.Sprintf("%s@backpack.dev", gofakeit.Username())
 		phone := gofakeit.Phone()
 		operativeUserID, err := app.NewUser(operativeNames[i], email, "password123", model.UserRoleOperative)

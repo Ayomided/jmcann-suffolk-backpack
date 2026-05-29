@@ -1,0 +1,59 @@
+{{define "title"}}Rate History — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    <div class="page-header">
+        <h1 class="page-title">{{.Operative.Name}} — Rates</h1>
+    </div>
+    <hr class="divider">
+    <section class="detail-section">
+        <div class="section-header">
+            <h2 class="section-title">Current Rate</h2>
+        </div>
+        {{if .CurrentRate}}
+        <div class="detail-row">
+            <span class="detail-label">Rate</span>
+            <span class="detail-value">{{.CurrentRate.RatePerHour}} per hour</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Effective From</span>
+            <span class="detail-value">{{.CurrentRate.EffectiveFrom}}</span>
+        </div>
+        {{end}}
+        <form method="POST" action="/operatives/{{.Operative.ID}}/rates" class="form">
+            <div class="field">
+                <input type="number" name="rate" placeholder="New rate (pence per hour)" min="1"
+                    class="input{{if .Errors.rate}} input--error{{end}}">
+                {{if .Errors.rate}}
+                <span class="field-error" data-error="rate">{{.Errors.rate}}</span>
+                {{end}}
+            </div>
+            <button type="submit" class="btn btn--primary">Update rate</button>
+        </form>
+    </section>
+    <section class="detail-section">
+        <h2 class="section-title">History</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Rate ⇅</th>
+                    <th>Effective From ⇅</th>
+                    <th>Effective To ⇅</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .History}}
+                <tr>
+                    <td>{{.RatePerHour}}</td>
+                    <td>{{.EffectiveFrom}}</td>
+                    <td>{{if .EffectiveTo}}{{.EffectiveTo}}{{else}}Current{{end}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="3" class="empty-state">No rate history</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+</main>
+{{end}}

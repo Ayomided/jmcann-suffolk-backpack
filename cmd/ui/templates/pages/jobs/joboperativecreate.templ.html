@@ -1,0 +1,32 @@
+{{define "title"}}Add Operative — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <form method="POST" action="/sessions/{{.Session.ID}}/operatives/new" class="form">
+        <div class="field">
+            <select name="operative_id" class="input select{{if .Errors.operative_id}} input--error{{end}}">
+                <option value="" disabled selected>Operative</option>
+                {{range .Operatives}}
+                <option value="{{.ID}}" {{if eq $.Values.operative_id .ID.String}}selected{{end}}>
+                    {{.Name}} — {{if .Trade}}{{.Trade}}{{end}}
+                </option>
+                {{end}}
+            </select>
+            {{if .Errors.operative_id}}
+            <span class="field-error" data-error="operative_id">{{.Errors.operative_id}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <input type="datetime-local" name="arrival_time" placeholder="Arrival Time" value="{{.Values.arrival_time}}"
+                class="input{{if .Errors.arrival_time}} input--error{{end}}">
+            {{if .Errors.arrival_time}}
+            <span class="field-error" data-error="arrival_time">{{.Errors.arrival_time}}</span>
+            {{end}}
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Add operative</button>
+    </form>
+</main>
+{{end}}

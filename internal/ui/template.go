@@ -2,7 +2,9 @@ package ui
 
 import (
 	"html/template"
+	"io/fs"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -40,17 +42,22 @@ var functions = template.FuncMap{
 func NewTemplateCache() (*TemplateCache, error) {
 	cache := map[string]*template.Template{}
 
-	pages, err := filepath.Glob("./cmd/ui/templates/*.templ.html")
+	var pages []string
+	err := filepath.WalkDir("./cmd/ui/templates/pages", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() && strings.HasSuffix(path, ".templ.html") {
+			pages = append(pages, path)
+		}
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}
 
 	for _, page := range pages {
 		name := filepath.Base(page)
-		if name == "base.templ.html" {
-			continue
-		}
-
 		ts, err := template.New(name).Funcs(functions).ParseFiles("./cmd/ui/templates/base.templ.html")
 		if err != nil {
 			return nil, err

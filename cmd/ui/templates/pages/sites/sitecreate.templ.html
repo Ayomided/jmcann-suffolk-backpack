@@ -1,0 +1,26 @@
+{{define "title"}}Create Site — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    <div class="page-header">
+        <h1 class="page-title">Create Site</h1>
+    </div>
+    <hr class="divider">
+    <form method="POST" action="/sites/new" class="form">
+        <div class="field">
+            <input type="text" name="name" placeholder="Site Name" value="{{.Values.name}}"
+                class="input{{if .Errors.name}} input--error{{end}}">
+            {{if .Errors.name}}
+            <span class="field-error" data-error="name">{{.Errors.name}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <input type="text" name="address" placeholder="Address" value="{{.Values.address}}"
+                class="input{{if .Errors.address}} input--error{{end}}">
+            {{if .Errors.address}}
+            <span class="field-error" data-error="address">{{.Errors.address}}</span>
+            {{end}}
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Create site</button>
+    </form>
+</main>
+{{end}}

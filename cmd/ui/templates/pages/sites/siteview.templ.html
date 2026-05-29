@@ -1,0 +1,43 @@
+{{define "title"}}{{.Site.Name}} — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    <div class="page-header">
+        <h1 class="page-title">{{.Site.Name}}</h1>
+    </div>
+    <hr class="divider">
+    <section class="detail-section">
+        <h2 class="section-title">Details</h2>
+        <div class="detail-row">
+            <span class="detail-label">Address</span>
+            <span class="detail-value">{{.Site.Address}}</span>
+        </div>
+    </section>
+    <section class="detail-section">
+        <h2 class="section-title">Jobs</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Reference ⇅</th>
+                    <th>Name ⇅</th>
+                    <th>Status ⇅</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Jobs}}
+                <tr>
+                    <td>{{.Reference}}</td>
+                    <td>{{.Name}}</td>
+                    <td><span class="badge badge--{{.Status}}">{{.Status}}</span></td>
+                    <td><a href="/jobs/{{.ID}}" class="action-link">View</a></td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="4" class="empty-state">No jobs at this site</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+</main>
+{{end}}

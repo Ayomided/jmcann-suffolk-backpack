@@ -1,0 +1,62 @@
+{{define "title"}}Create Job — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <form method="POST" action="/jobs/new" class="form">
+        <div class="field">
+            <input type="text" name="reference" placeholder="Job Reference" value="{{.Values.reference}}"
+                class="input{{if .Errors.reference}} input--error{{end}}">
+            {{if .Errors.reference}}
+            <span class="field-error" data-error="reference">{{.Errors.reference}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <input type="text" name="name" placeholder="Name" value="{{.Values.name}}"
+                class="input{{if .Errors.name}} input--error{{end}}">
+            {{if .Errors.name}}
+            <span class="field-error" data-error="name">{{.Errors.name}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <select name="site_id" class="input select{{if .Errors.site_id}} input--error{{end}}">
+                <option value="" disabled selected>Site</option>
+                {{range .Sites}}
+                <option value="{{.ID}}" {{if eq $.Values.site_id .ID.String}}selected{{end}}>
+                    {{.Name}}
+                </option>
+                {{end}}
+            </select>
+            {{if .Errors.site_id}}
+            <span class="field-error" data-error="site_id">{{.Errors.site_id}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <input type="date" name="start_datetime" placeholder="Start Date" value="{{.Values.start_datetime}}"
+                class="input{{if .Errors.start_datetime}} input--error{{end}}">
+            {{if .Errors.start_datetime}}
+            <span class="field-error" data-error="start_datetime">{{.Errors.start_datetime}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <input type="number" name="expected_headcount" placeholder="Headcount"
+                value="{{.Values.expected_headcount}}" min="1"
+                class="input{{if .Errors.expected_headcount}} input--error{{end}}">
+            {{if .Errors.expected_headcount}}
+            <span class="field-error" data-error="expected_headcount">{{.Errors.expected_headcount}}</span>
+            {{end}}
+        </div>
+
+        <div class="button-field">
+            <button type="submit" class="btn btn--primary btn--full">Create job</button>
+            <a href="/dashboard" class="btn btn--danger btn--full">
+                Cancel
+            </a>
+        </div>
+    </form>
+</main>
+{{end}}

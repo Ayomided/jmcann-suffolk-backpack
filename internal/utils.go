@@ -1,10 +1,15 @@
 package internal
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"net/http"
 
+	"adediiji.uk/jmcann-suffolk-backpack-task/internal/auth"
 	appError "adediiji.uk/jmcann-suffolk-backpack-task/internal/error"
+	"adediiji.uk/jmcann-suffolk-backpack-task/internal/model"
+	"github.com/google/uuid"
 )
 
 func (app *JMcCannBackPackApp) render(w http.ResponseWriter, page string, status int, data any) {
@@ -69,4 +74,43 @@ func getItem[T Item](key string, item []T) *T {
 		}
 	}
 	return nil
+}
+
+func (app *JMcCannBackPackApp) pageHeaderFromContext(context context.Context, pageTitle string) (*model.PageHeader, error) {
+	userId, ok := auth.UserIDFromContext(context)
+	if !ok {
+		return nil, errors.New("no user in cotext")
+	}
+	user, err := app.DB.GetUserById(userId)
+	if err != nil {
+		return nil, fmt.Errorf("no user found with id: %s. %s", userId, err)
+	}
+
+	if user.Role == model.UserRoleOperative {
+		userTrade, err := app.DB.GetOperativeTradeByUserID(user.ID.String())
+		if err != nil || userTrade == nil {
+			return nil, fmt.Errorf("no user found with id: %s. %s", userId, err)
+		}
+
+		return &model.PageHeader{
+			Title:    pageTitle,
+			UserName: user.Name,
+			UserRole: *userTrade,
+		}, nil
+
+	}
+
+	return &model.PageHeader{
+		Title:    pageTitle,
+		UserName: user.Name,
+		UserRole: "Admin",
+	}, nil
+}
+
+func parseUUID(s string) (*uuid.UUID, error) {
+	id, err := uuid.Parse(s)
+	if err != nil {
+		return nil, err
+	}
+	return &id, nil
 }

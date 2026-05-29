@@ -1,0 +1,48 @@
+{{define "title"}}Create Operative — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    <div class="page-header">
+        <h1 class="page-title">Create Operative</h1>
+    </div>
+    <hr class="divider">
+    <form method="POST" action="/operatives/new" class="form">
+        <div class="field">
+            <input type="text" name="name" placeholder="Full Name" value="{{.Values.name}}"
+                class="input{{if .Errors.name}} input--error{{end}}">
+            {{if .Errors.name}}
+            <span class="field-error" data-error="name">{{.Errors.name}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <input type="email" name="email" placeholder="Email" value="{{.Values.email}}"
+                class="input{{if .Errors.email}} input--error{{end}}">
+            {{if .Errors.email}}
+            <span class="field-error" data-error="email">{{.Errors.email}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <input type="password" name="password" placeholder="Password"
+                class="input{{if .Errors.password}} input--error{{end}}">
+            {{if .Errors.password}}
+            <span class="field-error" data-error="password">{{.Errors.password}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <input type="tel" name="phone" placeholder="Phone" value="{{.Values.phone}}"
+                class="input{{if .Errors.phone}} input--error{{end}}">
+        </div>
+        <div class="field">
+            <input type="text" name="trade" placeholder="Trade" value="{{.Values.trade}}"
+                class="input{{if .Errors.trade}} input--error{{end}}">
+        </div>
+        <div class="field">
+            <input type="number" name="rate" placeholder="Rate per hour (pence)" value="{{.Values.rate}}" min="1"
+                class="input{{if .Errors.rate}} input--error{{end}}">
+            {{if .Errors.rate}}
+            <span class="field-error" data-error="rate">{{.Errors.rate}}</span>
+            {{end}}
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Create operative</button>
+    </form>
+</main>
+{{end}}

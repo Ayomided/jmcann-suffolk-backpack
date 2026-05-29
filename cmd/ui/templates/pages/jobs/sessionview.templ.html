@@ -1,0 +1,121 @@
+{{define "title"}}Session — Repair Jobs System{{end}} {{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <section class="detail-section">
+        <h2 class="section-title">Details</h2>
+        <div class="detail-row">
+            <span class="detail-label">Job Ref</span>
+            <span class="detail-value">{{.Job.Reference}}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Status</span>
+            <span class="badge{{if .Session.SubmittedAt}} badge--submitted{{else}} badge--active{{end}}">
+                {{if .Session.SubmittedAt}}SUBMITTED{{else}}ACTIVE{{end}}
+            </span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Start Date</span>
+            <span class="detail-value">{{ humanDate .Session.StartTime}}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">End Date</span>
+            <span class="detail-value"> {{if .Session.EndTime}}{{ humanDate .Session.EndTime}}{{else}}-{{end}} </span>
+        </div>
+        {{if .Session.Notes}}
+        <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">{{.Session.Notes}}</span>
+        </div>
+        {{end}}
+    </section>
+
+    <section class="detail-section">
+        <div class="section-header">
+            <h2 class="section-title">Materials</h2>
+            {{if not .Session.SubmittedAt}}
+            <a href="/sessions/{{.Session.ID}}/resources/new?type=material" class="action-link">Add</a>
+            {{end}}
+        </div>
+
+        {{range .Resources }} {{if eq .ResourceType "material"}}
+        <div class="resource-row">
+            <span class="resource-name">{{.ResourceName}}</span>
+            <span class="resource-qty">{{.Quantity}}</span>
+            {{if $.IsQS}}
+            <span class="resource-cost">{{.CalculatedCost}}</span>
+            {{end}} {{if not $.Session.SubmittedAt}}
+            <a href="#" class="action-link action-link--danger">Remove</a>
+            {{end}}
+        </div>
+        {{end}} {{end}} {{if not .Session.SubmittedAt}}
+        <a href="/sessions/{{.Session.ID}}/resources/new?type=material" class="btn btn--secondary btn--sm"> Add another
+            material </a>
+        {{end}}
+    </section>
+
+    <section class="detail-section">
+        <div class="section-header">
+            <h2 class="section-title">Tools</h2>
+            {{if not .Session.SubmittedAt}}
+            <a href="/sessions/{{.Session.ID}}/resources/new?type=tool" class="action-link">Add</a>
+            {{end}}
+        </div>
+        {{range .Resources}} {{if eq .ResourceType "tool"}}
+        <div class="resource-row">
+            <span class="resource-name">{{.ResourceName}}</span>
+            <span class="resource-duration">{{.DurationHours}} hrs</span>
+            {{if $.IsQS}}
+            <span class="resource-cost">{{.CalculatedCost}}</span>
+            {{end}} {{if not $.Session.SubmittedAt}}
+            <a href="#" class="action-link action-link--danger">Remove</a>
+            {{end}}
+        </div>
+        {{end}} {{end}}
+    </section>
+
+    <section class="detail-section">
+        <div class="section-header">
+            <h2 class="section-title">Mechanical</h2>
+            {{if not .Session.SubmittedAt}}
+            <a href="/sessions/{{.Session.ID}}/resources/new?type=mechanical" class="action-link">Add</a>
+            {{end}}
+        </div>
+        {{range .Resources}} {{if eq .ResourceType "mechanical"}}
+        <div class="resource-row">
+            <span class="resource-name">{{.ResourceName}}</span>
+            <span class="resource-arrival">Arrived: {{ humanDate .ArrivalTime }}</span>
+            <span class="resource-duration">{{.DurationHours}} hrs</span>
+            {{if $.IsQS}}
+            <span class="resource-cost">{{.CalculatedCost}}</span>
+            {{end}} {{if not $.Session.SubmittedAt}}
+            <a href="#" class="action-link action-link--danger">Remove</a>
+            {{end}}
+        </div>
+        {{end}} {{end}}
+    </section>
+
+    {{if eq .IsQS true}}
+    <section class="detail-section">
+        <h2 class="section-title">Session Cost</h2>
+        {{range .Operatives}}
+        <div class="detail-row">
+            <span class="detail-label">{{.OperativeName}}</span>
+            <span class="detail-value">{{.CalculatedCost}}</span>
+        </div>
+        {{end}}
+        <div class="detail-row detail-row--total">
+            <span class="detail-label">Total</span>
+            <span class="detail-value">{{.SessionTotal}}</span>
+        </div>
+    </section>
+    {{end}}
+    {{if and (not .Session.SubmittedAt) (not .IsQS)}}
+    <div class="form-actions">
+        <form method="POST" action="/sessions/{{.Session.ID}}/submit">
+            <button type="submit" class="btn btn--primary btn--full">Submit session</button>
+        </form>
+    </div>
+    {{end}}
+</main>
+{{end}}

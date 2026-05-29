@@ -1,0 +1,61 @@
+{{define "title"}}Add Resource — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <form method="POST" action="/sessions/{{.Session.ID}}/resources/new" class="form">
+        <div class="field">
+            <select name="resource_id" class="input select{{if .Errors.resource_id}} input--error{{end}}"
+                onchange="updateResourceFields(this)">
+                <option value="" disabled selected>Resource</option>
+                {{range .Resources}}
+                <option value="{{.ID}}" data-type="{{.ResourceType}}" {{if eq $.Values.resource_id
+                    .ID.String}}selected{{end}}>
+                    {{.Name}} ({{.ResourceType}})
+                </option>
+                {{end}}
+            </select>
+            {{if .Errors.resource_id}}
+            <span class="field-error" data-error="resource_id">{{.Errors.resource_id}}</span>
+            {{end}}
+        </div>
+
+        <div class="field" id="field-quantity" {{if .Errors.quantity}} style="display:block;" {{else}}
+            style="display:none" {{end}}>
+            <input type="number" name="quantity" placeholder="Quantity" value="{{.Values.quantity}}" min="1" step="0.01"
+                class="input{{if .Errors.quantity}} input--error{{end}}">
+            {{if .Errors.quantity}}
+            <span class="field-error" data-error="quantity">{{.Errors.quantity}}</span>
+            {{end}}
+        </div>
+
+        <div class="field" id="field-duration" {{if .Errors.duration_hours}} style="display:block;" {{else}}
+            style="display:none" {{end}}>
+            <input type="number" name="duration_hours" placeholder="Duration (hours)" value="{{.Values.duration_hours}}"
+                min="0" step="0.1" class="input{{if .Errors.duration_hours}} input--error{{end}}">
+            {{if .Errors.duration_hours}}
+            <span class="field-error" data-error="duration_hours">{{.Errors.duration_hours}}</span>
+            {{end}}
+        </div>
+
+        <div class="field" id="field-arrival" {{if .Errors.arrival_time}} style="display:block;" {{else}}
+            style="display:none" {{end}}>
+            <input type="datetime-local" name="arrival_time" placeholder="Arrival Time" value="{{.Values.arrival_time}}"
+                class="input{{if .Errors.arrival_time}} input--error{{end}}">
+            {{if .Errors.arrival_time}}
+            <span class="field-error" data-error="arrival_time">{{.Errors.arrival_time}}</span>
+            {{end}}
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Add resource</button>
+    </form>
+</main>
+<script>
+    function updateResourceFields(select) {
+        const type = select.options[select.selectedIndex].dataset.type;
+        document.getElementById('field-quantity').style.display = type === 'material' ? 'block' : 'none';
+        document.getElementById('field-duration').style.display = type === 'tool' || type === 'mechanical' ? 'block' : 'none';
+        document.getElementById('field-arrival').style.display = type === 'mechanical' ? 'block' : 'none';
+    }
+</script>
+{{end}}

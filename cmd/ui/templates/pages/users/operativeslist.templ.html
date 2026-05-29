@@ -1,0 +1,38 @@
+{{define "title"}}Operatives — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    <div class="page-header">
+        <h1 class="page-title">Operatives</h1>
+    </div>
+    <hr class="divider">
+    <div class="section-header">
+        <a href="/operatives/new" class="action-link">Add Operative</a>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name ⇅</th>
+                <th>Trade ⇅</th>
+                <th>Email ⇅</th>
+                <th>Rate ⇅</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Operatives}}
+            <tr>
+                <td>{{.Name}}</td>
+                <td>{{if .Trade}}{{.Trade}}{{else}}-{{end}}</td>
+                <td>{{.Email}}</td>
+                <td>{{if .CurrentRate}}{{.CurrentRate.RatePerHour}}{{else}}-{{end}}</td>
+                <td><a href="/operatives/{{.ID}}" class="action-link">View</a></td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="empty-state">No operatives added yet</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</main>
+{{end}}

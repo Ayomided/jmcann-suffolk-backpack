@@ -9,11 +9,11 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-type contextKey string
+type ContextKey string
 
 const (
-	contextKeyUserRole contextKey = "userRole"
-	contextKeyUserID   contextKey = "userID"
+	ContextKeyUserRole ContextKey = "userRole"
+	ContextKeyUserID   ContextKey = "userID"
 )
 
 func CreateAccessToken(user *model.User, secret string, expiry int) (accessToken string, err error) {
@@ -71,12 +71,12 @@ func ExtractIDFromToken(requestToken, secret string) (string, error) {
 }
 
 func UserIDFromContext(ctx context.Context) (string, bool) {
-	id, ok := ctx.Value(contextKeyUserID).(string)
+	id, ok := ctx.Value(ContextKeyUserID).(string)
 	return id, ok
 }
 
 func UserRoleFromContext(ctx context.Context) (string, bool) {
-	role, ok := ctx.Value(contextKeyUserRole).(string)
+	role, ok := ctx.Value(ContextKeyUserRole).(string)
 	return role, ok
 }
 

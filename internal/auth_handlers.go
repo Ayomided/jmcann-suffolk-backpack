@@ -15,12 +15,10 @@ type LoginFormData struct {
 	*FormFields
 }
 
-type contextKey string
-
-const contextKeyUserRole contextKey = "userRole"
-const contextKeyUserID contextKey = "userID"
-
 func (app *JMcCannBackPackApp) LoginForm(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cache-Control", "no-store, no-cache, must-revalidate")
+	w.Header().Set("Pragma", "no-cache")
+
 	if r.Method == http.MethodGet {
 		data := LoginFormData{
 			FormFields: NewFormFields(),
@@ -122,18 +120,17 @@ func (app *JMcCannBackPackApp) RequireAuth(next http.Handler) http.Handler {
 				HttpOnly: true,
 				MaxAge:   -1,
 			})
-
 			if errors.Is(err, jwt.ErrTokenExpired) {
 				http.Redirect(w, r, fmt.Sprintf("/refresh?redirect=%s", r.URL.String()), http.StatusTemporaryRedirect)
 				return
 			}
-
+			w.Header().Set("Cache-Control", "no-store")
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), contextKeyUserID, userID)
-		ctx = context.WithValue(ctx, contextKeyUserRole, role)
+		ctx := context.WithValue(r.Context(), auth.ContextKeyUserID, userID)
+		ctx = context.WithValue(ctx, auth.ContextKeyUserRole, role)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

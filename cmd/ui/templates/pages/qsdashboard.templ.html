@@ -1,0 +1,79 @@
+{{define "title"}}Jobs — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <section class="job-group">
+        <div class="group-header">
+            <h2 class="group-label">Active</h2>
+            <a href="/jobs/new" class="action-link">Add Job</a>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Reference ⇅</th>
+                    <th>Job Name ⇅</th>
+                    <th>Status ⇅</th>
+                    <th>Site ⇅</th>
+                    <th>Start Date ⇅</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Jobs}}
+                {{if eq .Status "active" "draft" }}
+                <tr>
+                    <td>{{.Reference}}</td>
+                    <td>{{.Name}}</td>
+                    <td><span class="badge badge--active">ACTIVE</span></td>
+                    <td>{{ .SiteID }}</td>
+                    <td>{{ humanDate .StartDatetime}}</td>
+                    <td>
+                        <a href="/jobs/{{.ID}}" class="action-link-more" aria-label="Job details">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="black"
+                                    d="M12 7.8a2.101 2.101 0 0 1 0-4.2 2.101 2.101 0 0 1 0 4.2m0 8.4a2.101 2.101 0 0 1 0 4.2 2.101 2.101 0 0 1 0-4.2m2.1-4.2a2.101 2.101 0 0 1-4.2 0 2.101 2.101 0 0 1 4.2 0" />
+                            </svg>
+
+                        </a>
+                    </td>
+                </tr>
+                {{end}}
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="job-group">
+        <div class="group-header">
+            <h2 class="group-label">Completed</h2>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Reference ⇅</th>
+                    <th>Job Name ⇅</th>
+                    <th>Status ⇅</th>
+                    <th>Site ⇅</th>
+                    <th>Start Date ⇅</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Jobs}}
+                {{if eq .Status "completed"}}
+                <tr>
+                    <td>{{.Reference}}</td>
+                    <td>{{.Name}}</td>
+                    <td><span class="badge badge--complete">COMPLETE</span></td>
+                    <td>{{.SiteID}}</td>
+                    <td>{{.StartDatetime}}</td>
+                    <td><a href="/jobs/{{.ID}}" class="action-link">...</a></td>
+                </tr>
+                {{end}}
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+</main>
+{{end}}

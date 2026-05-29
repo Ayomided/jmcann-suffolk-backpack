@@ -1,0 +1,52 @@
+{{define "title"}}Create Resource — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    <div class="page-header">
+        <h1 class="page-title">Create Resource</h1>
+    </div>
+    <hr class="divider">
+    <form method="POST" action="/resources/new" class="form">
+        <div class="field">
+            <input type="text" name="name" placeholder="Resource Name" value="{{.Values.name}}"
+                class="input{{if .Errors.name}} input--error{{end}}">
+            {{if .Errors.name}}
+            <span class="field-error" data-error="name">{{.Errors.name}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <select name="resource_type" class="input select{{if .Errors.resource_type}} input--error{{end}}">
+                <option value="" disabled selected>Resource Type</option>
+                <option value="tool" {{if eq .Values.resource_type "tool" }}selected{{end}}>Tool</option>
+                <option value="material" {{if eq .Values.resource_type "material" }}selected{{end}}>Material</option>
+                <option value="mechanical" {{if eq .Values.resource_type "mechanical" }}selected{{end}}>Mechanical
+                </option>
+            </select>
+            {{if .Errors.resource_type}}
+            <span class="field-error" data-error="resource_type">{{.Errors.resource_type}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <input type="text" name="unit_of_measure" placeholder="Unit of Measure (optional)"
+                value="{{.Values.unit_of_measure}}" class="input">
+        </div>
+        <div class="field">
+            <select name="cost_unit" class="input select{{if .Errors.cost_unit}} input--error{{end}}">
+                <option value="" disabled selected>Cost Unit</option>
+                <option value="per_hour" {{if eq .Values.cost_unit "per_hour" }}selected{{end}}>Per Hour</option>
+                <option value="per_unit" {{if eq .Values.cost_unit "per_unit" }}selected{{end}}>Per Unit</option>
+            </select>
+            {{if .Errors.cost_unit}}
+            <span class="field-error" data-error="cost_unit">{{.Errors.cost_unit}}</span>
+            {{end}}
+        </div>
+        <div class="field">
+            <input type="number" name="rate" placeholder="Rate (pence)" value="{{.Values.rate}}" min="1"
+                class="input{{if .Errors.rate}} input--error{{end}}">
+            {{if .Errors.rate}}
+            <span class="field-error" data-error="rate">{{.Errors.rate}}</span>
+            {{end}}
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Create resource</button>
+    </form>
+</main>
+{{end}}

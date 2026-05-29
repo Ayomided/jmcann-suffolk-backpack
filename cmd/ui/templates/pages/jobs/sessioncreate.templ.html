@@ -1,0 +1,40 @@
+{{define "title"}}Create Session — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <form method="POST" action="/sessions/new" class="form">
+        <div class="field">
+            <select name="job_id" class="input select{{if .Errors.job_id}} input--error{{end}}">
+                <option value="" disabled selected>Job</option>
+                {{range .Jobs}}
+                <option value="{{.ID}}" {{if eq $.Values.job_id .ID.String}}selected{{end}}>
+                    {{.Name}} — {{.Reference}}
+                </option>
+                {{end}}
+            </select>
+            {{if .Errors.job_id}}
+            <span class="field-error" data-error="job_id">{{.Errors.job_id}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <input type="datetime-local" name="start_time" placeholder="Start Time" value="{{.Values.start_time}}"
+                class="input{{if .Errors.start_time}} input--error{{end}}">
+            {{if .Errors.start_time}}
+            <span class="field-error" data-error="start_time">{{.Errors.start_time}}</span>
+            {{end}}
+        </div>
+
+        <div class="field">
+            <textarea name="notes" placeholder="Notes" class="input textarea{{if .Errors.notes}} input--error{{end}}"
+                rows="4">{{.Values.notes}}</textarea>
+            {{if .Errors.notes}}
+            <span class="field-error" data-error="notes">{{.Errors.notes}}</span>
+            {{end}}
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Start session</button>
+    </form>
+</main>
+{{end}}

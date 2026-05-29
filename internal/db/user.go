@@ -248,6 +248,57 @@ func (as *AppStorage) GetOperativeByUserID(userID string) (*model.Operative, err
 	return &o, nil
 }
 
+func (as *AppStorage) GetOperativeByUserIDWithRate(userID string) (*model.Operative, error) {
+	row := as.DB.QueryRow(
+		`select o.id, o.user_id, o.name, o.email, o.phone, o.trade, r.rate_per_hour from operative o inner join operative_rate r on r.operative_id = o.id where o.user_id = ?`,
+		userID,
+	)
+	var o model.Operative
+	var idStr, userIDStr string
+	var phone, trade, rate sql.NullString
+	err := row.Scan(&idStr, &userIDStr, &o.Name, &o.Email, &phone, &trade, &rate)
+	if err == sql.ErrNoRows {
+		return nil, &appError.DBError{
+			Context: "GetOperativeByUserIDWithRate",
+			Values:  []string{"userID"},
+			Action:  "query",
+			Table:   "operative",
+			Err:     appError.DBErrNotFound,
+		}
+	}
+	if err != nil {
+		return nil, &appError.DBError{
+			Context: "GetOperativeByUserIDWithRate",
+			Values:  []string{"userID"},
+			Action:  "query",
+			Table:   "operative",
+			Err:     appError.DBErrQuery,
+		}
+	}
+	o.ID, _ = uuid.Parse(idStr)
+	o.UserID, _ = uuid.Parse(userIDStr)
+	if phone.Valid {
+		o.Phone = phone.String
+	}
+	if trade.Valid {
+		o.Trade = &trade.String
+	}
+	if rate.Valid {
+		rateAmount, err := model.MoneyFromString(rate.String)
+		if err != nil {
+			return nil, &appError.DBError{
+				Context: "GetOperativeByUserIDWithRate",
+				Values:  []string{"rate"},
+				Action:  "convert rate from string to money",
+				Table:   "operative",
+				Err:     appError.DBErrQuery,
+			}
+		}
+		o.Rate = rateAmount
+	}
+	return &o, nil
+}
+
 func (as *AppStorage) GetOperativeTradeByUserID(userID string) (*string, error) {
 	row := as.DB.QueryRow(
 		`select trade from operative where user_id = ?`,
@@ -320,6 +371,60 @@ func (as *AppStorage) GetOperatives() (*[]model.Operative, error) {
 		}
 		if trade.Valid {
 			o.Trade = &trade.String
+		}
+		operatives = append(operatives, o)
+	}
+	return &operatives, nil
+}
+
+func (as *AppStorage) GetOperativesWithRates() (*[]model.Operative, error) {
+	rows, err := as.DB.Query(
+		`select o.id, o.user_id, o.name, o.email, o.phone, o.trade, r.rate_per_hour from operative o inner join operative_rate r on r.operative_id = o.id`,
+	)
+	if err != nil {
+		return nil, &appError.DBError{
+			Context: "GetOperativesWithRates",
+			Values:  []string{},
+			Action:  "query",
+			Table:   "operative",
+			Err:     appError.DBErrQuery,
+		}
+	}
+	defer rows.Close()
+	var operatives []model.Operative
+	for rows.Next() {
+		var o model.Operative
+		var idStr, userIDStr string
+		var phone, trade, rate sql.NullString
+		if err := rows.Scan(&idStr, &userIDStr, &o.Name, &o.Email, &phone, &trade, &rate); err != nil {
+			return nil, &appError.DBError{
+				Context: "GetOperativesWithRates",
+				Values:  []string{"idStr", "userIDStr", "o.Name", "o.Email", "phone", "trade", "rate"},
+				Action:  "scan",
+				Table:   "operative",
+				Err:     appError.DBErrQuery,
+			}
+		}
+		o.ID, _ = uuid.Parse(idStr)
+		o.UserID, _ = uuid.Parse(userIDStr)
+		if phone.Valid {
+			o.Phone = phone.String
+		}
+		if trade.Valid {
+			o.Trade = &trade.String
+		}
+		if rate.Valid {
+			rateAmount, err := model.MoneyFromString(rate.String)
+			if err != nil {
+				return nil, &appError.DBError{
+					Context: "GetOperativeByUserID",
+					Values:  []string{"rate"},
+					Action:  "convert rate from string to money",
+					Table:   "operative",
+					Err:     appError.DBErrQuery,
+				}
+			}
+			o.Rate = rateAmount
 		}
 		operatives = append(operatives, o)
 	}

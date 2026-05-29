@@ -1,0 +1,51 @@
+{{define "title"}}Jobs — Repair Jobs System{{end}}
+{{define "content"}}
+<main class="content">
+    {{template "page-header" .PageHeader}}
+
+    <section class="job-group">
+        <h2 class="group-label">Active</h2>
+        {{range .Jobs}}
+        {{if eq .Status "active" "draft" }}
+        <div class="job-card">
+            <div class="job-card-main">
+                <div class="job-card-info">
+                    <span class="job-name">{{.Name}}</span>
+                    <span class="job-ref">#{{.Reference}}</span>
+                </div>
+                <div class="job-card-meta">
+                    <span class="badge badge--active">ACTIVE</span>
+                    <span class="job-site">{{.SiteID}}</span>
+                </div>
+            </div>
+            <hr class="card-divider">
+            <div class="job-card-actions">
+                <a href="/jobs/{{.ID}}" class="action-link">View sessions</a>
+                <a href="/sessions/new?job_id={{.ID}}" class="action-link">Mark session</a>
+            </div>
+        </div>
+        {{end}}
+        {{end}}
+    </section>
+
+    <section class="job-group">
+        <h2 class="group-label">Completed</h2>
+        {{range .Jobs}}
+        {{if eq .Status "completed"}}
+        <div class="job-card">
+            <div class="job-card-main">
+                <div class="job-card-info">
+                    <span class="job-name">{{.Name}}</span>
+                    <span class="job-ref">#{{.Reference}}</span>
+                </div>
+                <div class="job-card-meta">
+                    <span class="badge badge--complete">COMPLETE</span>
+                    <span class="job-site">{{.SiteID}}</span>
+                </div>
+            </div>
+        </div>
+        {{end}}
+        {{end}}
+    </section>
+</main>
+{{end}}
