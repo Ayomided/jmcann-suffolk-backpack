@@ -87,6 +87,7 @@ type JobOperative struct {
 	SessionID      uuid.UUID
 	OperativeID    uuid.UUID
 	ArrivalTime    time.Time
+	OperativeName  *string
 	DepartureTime  *time.Time
 	RateSnapshot   Money
 	CalculatedCost *Money

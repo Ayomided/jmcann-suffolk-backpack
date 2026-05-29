@@ -276,11 +276,11 @@ func (as *AppStorage) UpdateJob(id *uuid.UUID, status *model.JobStatus, endDatet
 			Err:     appError.DBErrBadArgument,
 		}
 	}
-	var endTs interface{}
+	var endTs any
 	if endDatetime != nil {
 		endTs = endDatetime.Unix()
 	}
-	var costStr interface{}
+	var costStr any
 	if totalCost != nil {
 		costStr = totalCost.Serialize()
 	}
@@ -496,7 +496,7 @@ func (as *AppStorage) UpdateJobSession(id *uuid.UUID, endTime *time.Time, submit
 			Err:     appError.DBErrBadArgument,
 		}
 	}
-	var endTs, subAt, subBy interface{}
+	var endTs, subAt, subBy any
 	if endTime != nil {
 		endTs = endTime.Unix()
 	}
@@ -566,8 +566,8 @@ func (as *AppStorage) GetJobOperatives(sessionID *uuid.UUID) (*[]model.JobOperat
 		}
 	}
 	rows, err := as.DB.Query(
-		`select id, job_id, session_id, operative_id, arrival_time, departure_time, rate_snapshot, calculated_cost
-		 from job_operative where session_id = ?`,
+		`select j.id, j.job_id, j.session_id, j.operative_id, j.arrival_time, j.departure_time, j.rate_snapshot, j.calculated_cost, o.name
+		 from job_operative j inner join operative o on o.id = j.operative_id where session_id = ?`,
 		sessionID.String(),
 	)
 	if err != nil {
@@ -586,10 +586,10 @@ func (as *AppStorage) GetJobOperatives(sessionID *uuid.UUID) (*[]model.JobOperat
 		var idStr, jobIDStr, sessionIDStr, operativeIDStr, rateStr string
 		var arrivalTime float64
 		var departureTime sql.NullFloat64
-		var calculatedCost sql.NullString
+		var calculatedCost, operativeName sql.NullString
 		if err := rows.Scan(
 			&idStr, &jobIDStr, &sessionIDStr, &operativeIDStr,
-			&arrivalTime, &departureTime, &rateStr, &calculatedCost,
+			&arrivalTime, &departureTime, &rateStr, &calculatedCost, &operativeName,
 		); err != nil {
 			return nil, &appError.DBError{
 				Context: "GetJobOperatives",
@@ -632,6 +632,9 @@ func (as *AppStorage) GetJobOperatives(sessionID *uuid.UUID) (*[]model.JobOperat
 			}
 			jo.CalculatedCost = m
 		}
+		if operativeName.Valid {
+			jo.OperativeName = &operativeName.String
+		}
 		operatives = append(operatives, jo)
 	}
 	return &operatives, nil
@@ -647,7 +650,7 @@ func (as *AppStorage) UpdateJobOperative(id *uuid.UUID, departureTime *time.Time
 			Err:     appError.DBErrBadArgument,
 		}
 	}
-	var depTs, costStr interface{}
+	var depTs, costStr any
 	if departureTime != nil {
 		depTs = departureTime.Unix()
 	}
@@ -680,11 +683,11 @@ func (as *AppStorage) NewJobResource(jobID, sessionID, resourceID *uuid.UUID, qu
 			Err:     appError.DBErrBadArgument,
 		}
 	}
-	var arrTs interface{}
+	var arrTs any
 	if arrivalTime != nil {
 		arrTs = arrivalTime.Unix()
 	}
-	var costStr interface{}
+	var costStr any
 	if calculatedCost != nil {
 		costStr = calculatedCost.Serialize()
 	}
@@ -813,7 +816,7 @@ func (as *AppStorage) UpdateJobResource(id *uuid.UUID, calculatedCost *model.Mon
 			Err:     appError.DBErrBadArgument,
 		}
 	}
-	var costStr interface{}
+	var costStr any
 	if calculatedCost != nil {
 		costStr = calculatedCost.Serialize()
 	}
