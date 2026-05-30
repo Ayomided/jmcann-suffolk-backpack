@@ -650,11 +650,15 @@
 
         .data-table {
             font-size: var(--text-sm);
+            display: block;
+            overflow-x: auto;
+            scrollbar-width: thin;
         }
 
         .data-table th,
         .data-table td {
             padding: 8px;
+            white-space: nowrap;
         }
     }
 

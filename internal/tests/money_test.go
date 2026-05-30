@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"testing"
 
 	"adediiji.uk/jmcann-suffolk-backpack-task/internal/model"
@@ -59,7 +58,6 @@ func TestMoneyMultiplyForRateCalculation(t *testing.T) {
 
 func TestMoneyMultiplyForRateQCalculation(t *testing.T) {
 	rate := model.NewMoney("gbp", 12000)
-	fmt.Printf("t: %d\n", rate.Amount())
 	total := rate.Multiply(10.0)
 	if total.Amount() != 120000 {
 		t.Errorf(" expected 120000 got %d %s", total.Amount(), total.String())
