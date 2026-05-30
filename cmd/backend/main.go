@@ -114,11 +114,11 @@ func main() {
 	protected.HandleFunc("GET /resources/{id}/rates", app.ResourceRateHistory)
 	protected.HandleFunc("POST /resources/{id}/rates", app.ResourceRateCreate)
 
-	protected.HandleFunc("GET /sessions/new", app.SessionCreate)
-	protected.HandleFunc("POST /sessions/new", app.SessionCreatePost)
-	protected.HandleFunc("GET /sessions/{id}", app.SessionView)
-	protected.HandleFunc("POST /sessions/{id}/submit", app.SessionSubmit)
+	protected.Handle("GET /sessions/new", app.RequireOperative(http.HandlerFunc(app.SessionCreate)))
+	protected.Handle("POST /sessions/new", app.RequireOperative(http.HandlerFunc(app.SessionCreatePost)))
+	protected.Handle("POST /sessions/{id}/submit", app.RequireOperative(http.HandlerFunc(app.SessionSubmit)))
 
+	protected.HandleFunc("GET /sessions/{id}", app.SessionView)
 	protected.HandleFunc("GET /sessions/{id}/resources/new", app.JobResourceCreate)
 	protected.HandleFunc("POST /sessions/{id}/resources/new", app.JobResourceCreatePost)
 	protected.HandleFunc("POST /sessions/{id}/resources/{resId}", app.JobResourceUpdate)

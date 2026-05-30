@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"adediiji.uk/jmcann-suffolk-backpack-task/internal/auth"
+	"adediiji.uk/jmcann-suffolk-backpack-task/internal/model"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -101,6 +102,17 @@ func (app *JMcCannBackPackApp) LoginFormPost(w http.ResponseWriter, r *http.Requ
 	})
 
 	http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
+}
+
+func (app *JMcCannBackPackApp) RequireOperative(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		role, ok := auth.UserRoleFromContext(r.Context())
+		if !ok || model.UserRole(role) != model.UserRoleOperative {
+			app.clientError(w, http.StatusForbidden)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 func (app *JMcCannBackPackApp) RequireAuth(next http.Handler) http.Handler {

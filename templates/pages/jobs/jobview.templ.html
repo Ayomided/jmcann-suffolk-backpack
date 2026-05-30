@@ -25,7 +25,7 @@
     <section class="detail-section">
         <div class="section-header">
             <h2 class="section-title">Sessions</h2>
-            {{if (eq .Job.Status "active") }}
+            {{if and (eq .Job.Status "active") (not .IsQS)}}
             <a href="/sessions/new?job_id={{.Job.ID}}" class="action-link">Mark Session</a>
             {{end}}
         </div>
