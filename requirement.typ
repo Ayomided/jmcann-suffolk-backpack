@@ -459,6 +459,31 @@ The following screens were implemented and are included as part of this submissi
 - *Create Session* — form for operatives to record a site visit against a job with start time and optional notes
 - *Session Detail* — role-aware view showing session details with materials, tools and mechanical resources logged; QS users see calculated costs per line item and session total
 
+#set quote(block: true)
+#show quote: set pad(x: 5pt)
+
+#show raw: set text(font: "mononoki")
+// Display inline code in a small box
+// that retains the correct baseline.
+#show raw.where(block: false): box.with(
+  fill: luma(240),
+  inset: (x: 3pt, y: 0pt),
+  outset: (y: 3pt),
+  radius: 2pt,
+)
+
+// Display block code in a larger block
+// with more padding.
+#show raw.where(block: true): block.with(
+  fill: luma(240),
+  inset: 10pt,
+  radius: 4pt,
+)
+
+#quote[
+  UI Design can found in #raw("UI Design BackpackMCann.pdf", lang: "rust").
+]
+
 == Testing
 The operative session logging screen was tested using Rod, a Go browser automation library built on the Chrome DevTools Protocol. Rod was selected as it integrates directly with the Go test toolchain without requiring a separate WebDriver process.
 
@@ -499,3 +524,6 @@ In this project we will use Github for storing our code, which offers us a distr
 = Appendices
 == Application Architecture Architecture <integrated>
 #figure(image("docs/img/App Architecture.png", width: 80%), caption: "Backpack App Architecture with DevOps Pipeline")
+
+== Entity Relationship Diagram
+#figure(image("docs/img/Backpack-Tables.png", width: 100%), caption: "Backpack Entity Relationship Diagram")
