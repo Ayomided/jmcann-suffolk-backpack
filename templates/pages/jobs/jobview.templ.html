@@ -32,10 +32,10 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Session Date ⇅</th>
-                    <th>Start Time ⇅</th>
-                    <th>End Time ⇅</th>
-                    <th>Submission By ⇅</th>
+                    <th>Session Date </th>
+                    <th>Start Time </th>
+                    <th>End Time </th>
+                    <th>Submission By </th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +44,7 @@
                     <td><a class="action-link" href="/sessions/{{.ID}}">{{humanDate .SessionDate}}</a></td>
                     <td>{{humanDate .StartTime}}</td>
                     <td>{{if .EndTime}}{{humanDate .EndTime}}{{else}}-{{end}}</td>
-                    <td>{{if .SubmittedBy}}{{.SubmittedBy}}{{else}}-{{end}}</td>
+                    <td>{{if .SubmittedByName}}{{.SubmittedByName}}{{else}}-{{end}}</td>
                 </tr>
                 {{else}}
                 <tr>
@@ -60,10 +60,10 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Operative Name ⇅</th>
-                    <th>Trade ⇅</th>
-                    <th>Email ⇅</th>
-                    <th>Rate ⇅</th>
+                    <th>Operative Name </th>
+                    <th>Trade </th>
+                    <th>Email </th>
+                    <th>Rate </th>
                 </tr>
             </thead>
             <tbody>

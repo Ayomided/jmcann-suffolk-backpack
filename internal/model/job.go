@@ -44,6 +44,7 @@ type Job struct {
 	ID            uuid.UUID
 	Reference     string
 	Name          string
+	SiteName      *string
 	SiteID        uuid.UUID
 	CreatedBy     uuid.UUID
 	Status        JobStatus
@@ -53,15 +54,16 @@ type Job struct {
 }
 
 type JobSession struct {
-	ID          uuid.UUID
-	JobID       uuid.UUID
-	SessionDate time.Time
-	StartTime   time.Time
-	EndTime     *time.Time
-	SubmittedAt *time.Time
-	SubmittedBy *uuid.UUID
-	TotalCost   *Money
-	Notes       *string
+	ID              uuid.UUID
+	JobID           uuid.UUID
+	SessionDate     time.Time
+	StartTime       time.Time
+	EndTime         *time.Time
+	SubmittedAt     *time.Time
+	SubmittedBy     *uuid.UUID
+	SubmittedByName *string
+	TotalCost       *Money
+	Notes           *string
 }
 
 type JobOperativeRequirement struct {

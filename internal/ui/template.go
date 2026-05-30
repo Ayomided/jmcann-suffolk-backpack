@@ -13,7 +13,7 @@ type TemplateCache struct {
 }
 
 func humanDate(t time.Time) string {
-	return t.Format("3:04am on 02 Jan 2006")
+	return t.Format("3:04pm on 02 Jan 2006")
 }
 
 func notificationArgs(values ...any) (map[string]any, error) {

@@ -206,8 +206,8 @@ func (as *AppStorage) GetJob(id *uuid.UUID) (*model.Job, error) {
 
 func (as *AppStorage) GetJobs() (*[]model.Job, error) {
 	rows, err := as.DB.Query(
-		`select id, reference, name, site_id, created_by, status, start_datetime, end_datetime, total_cost
-		 from job`,
+		`select j.id, j.reference, j.name, j.site_id, j.created_by, j.status, j.start_datetime, j.end_datetime, j.total_cost, s.name
+     from job j inner join site s where s.id = j.site_id`,
 	)
 	if err != nil {
 		return nil, &appError.DBError{
@@ -225,11 +225,11 @@ func (as *AppStorage) GetJobs() (*[]model.Job, error) {
 		var idStr, siteIDStr, createdByStr, statusStr string
 		var startDatetime float64
 		var endDatetime sql.NullFloat64
-		var totalCost sql.NullString
+		var totalCost, siteName sql.NullString
 		if err := rows.Scan(
 			&idStr, &j.Reference, &j.Name,
 			&siteIDStr, &createdByStr, &statusStr,
-			&startDatetime, &endDatetime, &totalCost,
+			&startDatetime, &endDatetime, &totalCost, &siteName,
 		); err != nil {
 			return nil, &appError.DBError{
 				Context: "GetJobs",
@@ -247,6 +247,9 @@ func (as *AppStorage) GetJobs() (*[]model.Job, error) {
 		if endDatetime.Valid {
 			t := time.Unix(int64(endDatetime.Float64), 0)
 			j.EndDatetime = &t
+		}
+		if siteName.Valid {
+			j.SiteName = &siteName.String
 		}
 		if totalCost.Valid {
 			m, err := model.MoneyFromString(totalCost.String)
@@ -429,8 +432,8 @@ func (as *AppStorage) GetJobSessions(jobID *uuid.UUID) (*[]model.JobSession, err
 		}
 	}
 	rows, err := as.DB.Query(
-		`select id, job_id, session_date, start_time, end_time, submitted_at, submitted_by, notes
-		 from job_session where job_id = ?`,
+		`select s.id, s.job_id, s.session_date, s.start_time, s.end_time, s.submitted_at, s.submitted_by, s.notes, o.name
+           from job_session s left join operative o on o.id = s.submitted_by where s.job_id = ?;`,
 		jobID.String(),
 	)
 	if err != nil {
@@ -449,10 +452,10 @@ func (as *AppStorage) GetJobSessions(jobID *uuid.UUID) (*[]model.JobSession, err
 		var idStr, jobIDStr string
 		var endTime, submittedAt sql.NullFloat64
 		var sessionDate, startTime float64
-		var submittedBy, notes sql.NullString
+		var submittedBy, notes, submittedByName sql.NullString
 		if err := rows.Scan(
 			&idStr, &jobIDStr, &sessionDate, &startTime,
-			&endTime, &submittedAt, &submittedBy, &notes,
+			&endTime, &submittedAt, &submittedBy, &notes, &submittedByName,
 		); err != nil {
 			return nil, &appError.DBError{
 				Context: "GetJobSessions",
@@ -477,6 +480,9 @@ func (as *AppStorage) GetJobSessions(jobID *uuid.UUID) (*[]model.JobSession, err
 		if submittedBy.Valid {
 			u, _ := uuid.Parse(submittedBy.String)
 			s.SubmittedBy = &u
+		}
+		if submittedByName.Valid {
+			s.SubmittedByName = &submittedByName.String
 		}
 		if notes.Valid {
 			s.Notes = &notes.String

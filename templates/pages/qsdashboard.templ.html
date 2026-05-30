@@ -11,11 +11,11 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Reference ⇅</th>
-                    <th>Job Name ⇅</th>
-                    <th>Status ⇅</th>
-                    <th>Site ⇅</th>
-                    <th>Start Date ⇅</th>
+                    <th>Reference </th>
+                    <th>Job Name </th>
+                    <th>Status </th>
+                    <th>Site </th>
+                    <th>Start Date </th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
                     <td>{{.Reference}}</td>
                     <td>{{.Name}}</td>
                     <td><span class="badge badge--active">ACTIVE</span></td>
-                    <td>{{ .SiteID }}</td>
+                    <td>{{ .SiteName }}</td>
                     <td>{{ humanDate .StartDatetime}}</td>
                     <td>
                         <a href="/jobs/{{.ID}}" class="action-link-more" aria-label="Job details">
@@ -51,11 +51,11 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Reference ⇅</th>
-                    <th>Job Name ⇅</th>
-                    <th>Status ⇅</th>
-                    <th>Site ⇅</th>
-                    <th>Start Date ⇅</th>
+                    <th>Reference </th>
+                    <th>Job Name </th>
+                    <th>Status </th>
+                    <th>Site </th>
+                    <th>Start Date </th>
                     <th></th>
                 </tr>
             </thead>
@@ -66,7 +66,39 @@
                     <td>{{.Reference}}</td>
                     <td>{{.Name}}</td>
                     <td><span class="badge badge--complete">COMPLETE</span></td>
-                    <td>{{.SiteID}}</td>
+                    <td>{{.SiteName}}</td>
+                    <td>{{.StartDatetime}}</td>
+                    <td><a href="/jobs/{{.ID}}" class="action-link">...</a></td>
+                </tr>
+                {{end}}
+                {{end}}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="job-group">
+        <div class="group-header">
+            <h2 class="group-label">Approved</h2>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Reference </th>
+                    <th>Job Name </th>
+                    <th>Status </th>
+                    <th>Site </th>
+                    <th>Start Date </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Jobs}}
+                {{if eq .Status "approved"}}
+                <tr>
+                    <td>{{.Reference}}</td>
+                    <td>{{.Name}}</td>
+                    <td><span class="badge badge--complete">APPROVED</span></td>
+                    <td>{{.SiteName}}</td>
                     <td>{{.StartDatetime}}</td>
                     <td><a href="/jobs/{{.ID}}" class="action-link">...</a></td>
                 </tr>
