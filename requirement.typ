@@ -324,6 +324,32 @@
   })
   show table.header: set text(weight: "bold")
 
+  set quote(block: true)
+  show quote: set pad(x: 5pt)
+  show quote: block.with(
+    fill: luma(240),
+    inset: 10pt,
+    radius: 4pt,
+  )
+
+  show raw: set text(font: "mononoki")
+  // Display inline code in a small box
+  // that retains the correct baseline.
+  show raw.where(block: false): box.with(
+    fill: luma(240),
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 2pt,
+  )
+
+  // Display block code in a larger block
+  // with more padding.
+  show raw.where(block: true): block.with(
+    fill: luma(240),
+    inset: 10pt,
+    radius: 4pt,
+  )
+
   doc
 }
 
@@ -335,7 +361,7 @@ McCann wishes to better understand the cost of a completed job, the team believe
 
 This document presents the requirements of the Backpack application specification that will be satisfy, from a technical and system operations perspective in relation to the business process it will support.
 
-The Backpack app is developed by the KTP Associate in collaboration with the Business Partner Supervisor at McCann and the Knowledge Base Supervisor, University of Suffolk.
+The Backpack app is developed by the KTP Associate Candidate in collaboration with the Business Partner Supervisor at McCann and the Knowledge Base Supervisor, University of Suffolk.
 
 == Scope
 This requirements specification applies to the task version completed as part of the KTP recruitment process, it is built to demonstrate my existing experience in Software engineering.
@@ -396,7 +422,7 @@ The key purpose of the system is for McCann and her teams to understand better t
 #let requirement-id(reqtype) = context {
   req-counters.at(reqtype).step()
   let n = req-counters.at(reqtype).get().first() + 1
-  [R-MCANN-#reqtype\-#n]
+  [*R-MCANN-#reqtype\-#n*]
 }
 
 = Requirements
@@ -444,86 +470,63 @@ The key purpose of the system is for McCann and her teams to understand better t
 == Language
 The Backpack app is implemented in Go, a statically typed, compiled language developed by Google. Go was selected for its simplicity, strong standard library, and performance characteristics that make it well suited for web applications. The application compiles to a single self-contained binary which includes the HTTP server, route handlers, template rendering engine and database access layer. No external runtime or interpreter is required to run the application on the server.
 
-The standard library `net/http` package is used to implement the HTTP server and routing, and `html/template` is used for server-side HTML rendering. This approach was chosen over a JavaScript framework to reduce complexity, eliminate a frontend build step, and ensure the application remains performant on low-powered mobile devices — a consideration for field operatives working in environments with poor connectivity.
+The standard library #raw("net/http", lang: "go") package is used to implement the HTTP server and routing, and #raw("html/template", lang: "go") is used for server-side HTML rendering. This approach was chosen over a JavaScript framework to reduce complexity, eliminate a frontend build step, and ensure the application remains performant on low-powered mobile devices — a consideration for field operatives working in environments with poor connectivity.
 
-The database layer uses SQLite via the `mattn/go-sqlite3` driver, abstracted behind an interface such that the underlying database can be replaced with PostgreSQL without changes to the application or handler code.
+The database layer uses SQLite via the #raw("mattn/go-sqlite3", lang: "go") driver, abstracted behind an interface such that the underlying database can be replaced with PostgreSQL without changes to the application or handler code.
 
 == Screens
 The following screens were implemented and are included as part of this submission:
 
 - *Login* — email and password authentication with validation error states, available to both roles
-- *QS Jobs List* — tabular view of active and completed jobs, desktop optimised, accessible to QS users
-- *Operative Jobs List* — card-based view of active and completed jobs, mobile optimised, accessible to operative users
+- *QS Dashboard* — tabular view of active and completed jobs, desktop optimised, accessible to QS users
+- *Operative Dashboard* — card-based view of active and completed jobs, mobile optimised, accessible to operative users
 - *Job Detail* — role-aware view showing job details, session history and operatives; QS users see cost summary and status actions, operatives see the Mark Session action
 - *Create Job* — form for QS users to create a new job with reference, name, site, start date and headcount, including field-level validation error states
 - *Create Session* — form for operatives to record a site visit against a job with start time and optional notes
 - *Session Detail* — role-aware view showing session details with materials, tools and mechanical resources logged; QS users see calculated costs per line item and session total
-
-#set quote(block: true)
-#show quote: set pad(x: 5pt)
-
-#show raw: set text(font: "mononoki")
-// Display inline code in a small box
-// that retains the correct baseline.
-#show raw.where(block: false): box.with(
-  fill: luma(240),
-  inset: (x: 3pt, y: 0pt),
-  outset: (y: 3pt),
-  radius: 2pt,
-)
-
-// Display block code in a larger block
-// with more padding.
-#show raw.where(block: true): block.with(
-  fill: luma(240),
-  inset: 10pt,
-  radius: 4pt,
-)
-
 #quote[
-  UI Design can found in #raw("UI Design BackpackMCann.pdf", lang: "rust").
+  UI Design for the Screens can found in `UI Design BackpackMCann.pdf`, the design was created using Sketch.
 ]
 
 == Testing
-The operative session logging screen was tested using Rod, a Go browser automation library built on the Chrome DevTools Protocol. Rod was selected as it integrates directly with the Go test toolchain without requiring a separate WebDriver process.
+The UI was tested using Rod, a Go browser automation library built on the Chrome DevTools Protocol. Rod was selected as it integrates directly with the Go test toolchain without requiring a separate WebDriver process.
 
 The following test cases were implemented:
 
 - *Login renders correctly* — asserts that the email input, password input and submit button are present in the DOM
-- *Login with valid credentials* — submits valid credentials and asserts the browser is redirected to the dashboard
-- *Login with invalid credentials* — submits an incorrect password and asserts the browser remains on the login page and a validation error is displayed
-- *Login with empty fields* — submits an empty form and asserts field-level error elements are rendered for both email and password
+- *Session create form error states* - there are two tests which were implemented to assert that the submission would not move forward with empty `Job ID` and `Start Time` for a seession.
 
-The Money type, which handles all monetary arithmetic in the application, is covered by unit tests asserting correct behaviour of addition, multiplication and serialisation in minor currency units.
+The `Money` type, which handles all monetary arithmetic in the application, is covered by unit tests asserting correct behaviour of addition, multiplication and serialisation in minor currency units.
+
+The `FormFields` type, which handles form fields validation is also tested asserting correct behaviour in checking values inputted in the form.
 
 == Deployment and Repository
-The source code is hosted on Codeberg, a source-available Git hosting platform, at the following address:
+The source code is hosted on Github, a Git hosting platform, at the following address:
 
-`https://codeberg.org/ayomided/jmcann-suffolk-backpack`
+`https://github.com/Ayomided/jmcann-suffolk-backpack`
 
 A live deployment of the application is available at:
 
 `https://backpack.adediiji.uk`
 
-The application is deployed to a Hetzner VPS running Ubuntu. The Go binary and static assets are built and transferred to the server over SSH as part of the CI/CD pipeline, which is triggered on every push to the main branch. The pipeline performs the following steps in order:
+The application is deployed to a Hetzner VPS running Ubuntu. The Go binary and static assets are built and transferred to the server over SSH as part of the CI/CD pipeline, which is triggered on every push to the #raw("main") branch. The pipeline performs the following steps in order:
 
-+ Run lints — code style and quality checks using `golangci-lint`
-+ Run tests — unit and UI tests using the Go test toolchain and Rod
-+ Build binary — `go build` compiles the application to a single binary
++ Run tests — unittests using the Go test toolchain
++ Build binary — #raw("go build") compiles the application to a single binary
 + Deploy — the binary and static assets are copied to the server over SSH and the systemd service is restarted
 
-The application runs as a systemd service, managed by the operating system process supervisor, ensuring the application is automatically restarted in the event of a failure. Caddy is used as a reverse proxy in front of the Go binary, handling TLS certificate provisioning and renewal automatically via Let's Encrypt.
+The application runs as a #raw("systemd") service, managed by the operating system process supervisor, ensuring the application is automatically restarted in the event of a failure. Caddy is used as a reverse proxy in front of the Go binary, handling TLS certificate provisioning and renewal automatically via Let's Encrypt.
 
 = DevOps Integration
 To integrate DevOps pratices the project will be developed using a Version Control System (VCS) such as Git, which will allow shared ownership between team members developing the project, this approach also allows collaboration such that the team can iterate on several parts of the Backpack App seperately and deliver features at speed.
 
 The project will also intergrate Automation which allows for performing repeated tasks relating to the delivery of the project such as deploying the app to the end once features have been approved and completed, and integrating risk reduction practices such as testing, dependency scanning etc.
 
-In this project we will use Github for storing our code, which offers us a distributed version control system built on Git, out CI pipelines run on Github Actions, where our deployment action SSHs into our Hetzner VPS. The process running our binary on the server is managed using Sysemtd, a software suite for system and service management on Linux. Diagram showing the full integration can be found here, @integrated.
+In this project we will use Github for collaborating on out code, which offers us a distributed version control system built on Git, out CI pipelines run on Github Actions, where our deployment action SSHs into our Hetzner VPS. The process running our binary on the server is managed using #raw("systemd"), a software suite for system and service management on Linux. Diagram showing the full integration can be found here, @integrated.
 
 = Appendices
 == Application Architecture Architecture <integrated>
 #figure(image("docs/img/App Architecture.png", width: 80%), caption: "Backpack App Architecture with DevOps Pipeline")
 
 == Entity Relationship Diagram
-#figure(image("docs/img/Backpack-Tables.png", width: 100%), caption: "Backpack Entity Relationship Diagram")
+#figure(image("docs/img/Backpack-Tables.png", width: 100%), caption: "Backpack App Entity Relationship Diagram")
