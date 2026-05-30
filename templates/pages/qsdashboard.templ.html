@@ -67,7 +67,7 @@
                     <td>{{.Name}}</td>
                     <td><span class="badge badge--complete">COMPLETE</span></td>
                     <td>{{.SiteName}}</td>
-                    <td>{{.StartDatetime}}</td>
+                    <td>{{humanDate .StartDatetime}}</td>
                     <td><a href="/jobs/{{.ID}}" class="action-link">...</a></td>
                 </tr>
                 {{end}}
@@ -99,7 +99,7 @@
                     <td>{{.Name}}</td>
                     <td><span class="badge badge--complete">APPROVED</span></td>
                     <td>{{.SiteName}}</td>
-                    <td>{{.StartDatetime}}</td>
+                    <td>{{humanDate .StartDatetime}}</td>
                     <td><a href="/jobs/{{.ID}}" class="action-link">...</a></td>
                 </tr>
                 {{end}}

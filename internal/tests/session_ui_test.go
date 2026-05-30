@@ -13,7 +13,11 @@ const baseURL = "http://localhost:3000"
 
 func newBrowser(t *testing.T) *rod.Browser {
 	t.Helper()
-	l := launcher.New().Headless(true)
+	l := launcher.
+		New().
+		Headless(true).
+		Set("no-sandbox", "").
+		Set("disable-dev-shm-usage", "")
 	url := l.MustLaunch()
 	browser := rod.New().
 		ControlURL(url).
