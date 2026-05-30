@@ -86,6 +86,8 @@ func (app *JMcCannBackPackApp) QSDashboard(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := QSDashboardData{
 		PageHeader: *pageHeader,
 	}
@@ -138,6 +140,8 @@ func (app *JMcCannBackPackApp) OperativeDashboard(w http.ResponseWriter, r *http
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := OperativeDashboardData{
 		PageHeader: *pageHeader,

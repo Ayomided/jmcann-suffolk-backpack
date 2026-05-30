@@ -52,6 +52,8 @@ func (app *JMcCannBackPackApp) ResourcesList(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := ResourcesListData{PageHeader: *pageHeader}
 	if resources != nil {
 		data.Resources = *resources
@@ -69,6 +71,8 @@ func (app *JMcCannBackPackApp) ResourceCreate(w http.ResponseWriter, r *http.Req
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := ResourceFormData{
 		PageHeader: *pageHeader,
@@ -95,6 +99,8 @@ func (app *JMcCannBackPackApp) ResourceCreatePost(w http.ResponseWriter, r *http
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := ResourceFormData{
 		PageHeader: *pageHeader,
@@ -182,6 +188,8 @@ func (app *JMcCannBackPackApp) ResourceView(w http.ResponseWriter, r *http.Reque
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := ResourceViewData{
 		PageHeader:  *pageHeader,
@@ -321,6 +329,8 @@ func (app *JMcCannBackPackApp) ResourceRateHistory(w http.ResponseWriter, r *htt
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := ResourceRateFormData{
 		PageHeader:  *pageHeader,

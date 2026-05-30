@@ -59,6 +59,8 @@ func (app *JMcCannBackPackApp) OperativesList(w http.ResponseWriter, r *http.Req
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := OperativesListData{PageHeader: *pageHeader}
 	if operatives != nil {
 		data.Operatives = *operatives
@@ -76,6 +78,8 @@ func (app *JMcCannBackPackApp) OperativeCreate(w http.ResponseWriter, r *http.Re
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := OperativeFormData{
 		PageHeader: *pageHeader,
@@ -102,6 +106,8 @@ func (app *JMcCannBackPackApp) OperativeCreatePost(w http.ResponseWriter, r *htt
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := OperativeFormData{
 		PageHeader: *pageHeader,
@@ -204,6 +210,8 @@ func (app *JMcCannBackPackApp) OperativeView(w http.ResponseWriter, r *http.Requ
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := OperativeViewData{
 		PageHeader:  *pageHeader,
@@ -349,6 +357,8 @@ func (app *JMcCannBackPackApp) OperativeRateHistory(w http.ResponseWriter, r *ht
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := OperativeRateFormData{
 		PageHeader:  *pageHeader,
 		FormFields:  NewFormFields(),
@@ -394,6 +404,8 @@ func (app *JMcCannBackPackApp) JobOperativeCreate(w http.ResponseWriter, r *http
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := JobOperativeFormData{
 		PageHeader: *pageHeader,
 		FormFields: NewFormFields(),
@@ -430,6 +442,8 @@ func (app *JMcCannBackPackApp) JobOperativeCreatePost(w http.ResponseWriter, r *
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	session, err := app.DB.GetJobSession(id)
 	if err != nil {

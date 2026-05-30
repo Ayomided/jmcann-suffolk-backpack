@@ -99,6 +99,8 @@ func (app *JMcCannBackPackApp) JobCreate(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := JobFormData{
 		PageHeader: *pageHeader,
 		FormFields: NewFormFields(),
@@ -127,6 +129,8 @@ func (app *JMcCannBackPackApp) JobCreatePost(w http.ResponseWriter, r *http.Requ
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := JobFormData{
 		PageHeader: *pageHeader,
@@ -256,6 +260,8 @@ func (app *JMcCannBackPackApp) JobView(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	role, ok := auth.UserRoleFromContext(r.Context())
 	data := JobViewData{
@@ -441,6 +447,8 @@ func (app *JMcCannBackPackApp) SessionCreate(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := SessionFormData{
 		PageHeader: *pageHeader,
 		FormFields: NewFormFields(),
@@ -470,11 +478,15 @@ func (app *JMcCannBackPackApp) SessionCreatePost(w http.ResponseWriter, r *http.
 		return
 	}
 
+	jobId := r.FormValue("job_id")
+
+	pageHeader.BackURL = "/dashboard"
+
 	data := SessionFormData{
 		PageHeader: *pageHeader,
 		FormFields: NewFormFields(),
 	}
-	data.Values["job_id"] = r.FormValue("job_id")
+	data.Values["job_id"] = jobId
 	data.Values["start_time"] = r.FormValue("start_time")
 	data.Values["notes"] = r.FormValue("notes")
 
@@ -488,7 +500,7 @@ func (app *JMcCannBackPackApp) SessionCreatePost(w http.ResponseWriter, r *http.
 		return
 	}
 
-	jobID, err := parseUUID(data.Values["job_id"])
+	jobID, err := parseUUID(jobId)
 	if err != nil {
 		data.Errors["job_id"] = "invalid job"
 		app.render(w, "sessioncreate.templ.html", http.StatusUnprocessableEntity, data)
@@ -569,6 +581,8 @@ func (app *JMcCannBackPackApp) SessionView(w http.ResponseWriter, r *http.Reques
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	role, ok := auth.UserRoleFromContext(r.Context())
 	data := SessionViewData{
@@ -663,6 +677,8 @@ func (app *JMcCannBackPackApp) JobResourceCreate(w http.ResponseWriter, r *http.
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := JobResourceFormData{
 		PageHeader: *pageHeader,

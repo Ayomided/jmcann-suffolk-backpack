@@ -43,6 +43,8 @@ func (app *JMcCannBackPackApp) SitesList(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	pageHeader.BackURL = "/dashboard"
+
 	data := SitesListData{PageHeader: *pageHeader}
 	if sites != nil {
 		data.Sites = *sites
@@ -86,6 +88,8 @@ func (app *JMcCannBackPackApp) SiteCreatePost(w http.ResponseWriter, r *http.Req
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := SiteFormData{
 		PageHeader: *pageHeader,
@@ -143,6 +147,8 @@ func (app *JMcCannBackPackApp) SiteView(w http.ResponseWriter, r *http.Request) 
 		})
 		return
 	}
+
+	pageHeader.BackURL = "/dashboard"
 
 	data := SiteViewData{
 		PageHeader: *pageHeader,

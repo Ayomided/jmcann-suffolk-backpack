@@ -81,19 +81,6 @@
         background: var(--white);
         -webkit-font-smoothing: antialiased;
     }
-
-    @view-transition {
-        navigation: auto;
-    }
-
-    @media (prefers-reduced-motion) {
-
-        ::view-transition-group(*),
-        ::view-transition-old(*),
-        ::view-transition-new(*) {
-            animation: none;
-        }
-    }
 }
 
 @layer layout {
@@ -598,7 +585,7 @@
     .login-header h1 {
         font-size: var(--text-xl);
         font-weight: 400;
-        view-transition-name: page-title;
+        view-transition-name: login-title;
     }
 
     .login-form {
@@ -628,46 +615,13 @@
         margin-top: 16px;
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-        @view-transition {
-            navigation: auto;
+    @keyframes fade-in {
+        from {
+            opacity: 0;
         }
 
-        .page-title {
-            view-transition-name: page-title;
-        }
-
-        .job-name {
-            view-transition-name: page-title;
-        }
-
-        ::view-transition-old(page-title) {
-            animation: 100ms ease-in both title-out;
-        }
-
-        ::view-transition-new(page-title) {
-            animation: 400ms ease-out both title-in;
-        }
-
-        ::view-transition-old(root) {
-            animation: none;
-        }
-
-        ::view-transition-new(root) {
-            animation: none;
-        }
-
-        @keyframes title-in {
-            from {
-                transform: translateY(40px);
-            }
-        }
-
-        @keyframes title-out {
-            to {
-                transform: translateY(-8px);
-                opacity: 0;
-            }
+        to {
+            opacity: 1;
         }
     }
 }
