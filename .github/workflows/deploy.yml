@@ -52,23 +52,14 @@ jobs:
         run: |
           rsync -avz --delete \
             backpack-app \
-            cmd/ui/static/ \
-            cmd/ui/templates/ \
             .github/scripts/deploy.sh \
             ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/
-
-      - name: Copy systemd service
-        run: |
-          rsync -avz \
-            .github/scripts/backpack.service \
-            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/tmp/backpack.service
-
-      - name: Install and enable systemd service
-        run: |
-          ssh ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }} \
-            "sudo mv /tmp/backpack.service /etc/systemd/system/backpack.service && \
-             sudo systemctl daemon-reload && \
-             sudo systemctl enable backpack"
+          rsync -avz --delete \
+            cmd/ui/templates/ \
+            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/templates/
+          rsync -avz --delete \
+            cmd/ui/static/ \
+            ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/static/
 
       - name: Run deploy script
         run: |

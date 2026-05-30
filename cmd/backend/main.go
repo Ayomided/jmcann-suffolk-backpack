@@ -77,7 +77,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	fileserver := http.FileServer(http.Dir("./cmd/ui/static/"))
+	fileserver := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileserver))
 	mux.HandleFunc("POST /refresh", app.RefreshToken)
 	mux.HandleFunc("GET /login", app.LoginForm)

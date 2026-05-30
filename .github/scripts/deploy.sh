@@ -8,6 +8,11 @@ HEALTH_URL=https://backpack.adediiji.uk/login
 MAX_RETRIES=10
 RETRY_INTERVAL=3
 
+if [ ! -f $APP_DIR/backpack.db ]; then
+    echo "Running initial migration..."
+    $BINARY -db_path=$APP_DIR/backpack.db -migrate
+fi
+
 echo "Stopping service..."
 sudo systemctl stop $SERVICE
 

@@ -43,7 +43,7 @@ func NewTemplateCache() (*TemplateCache, error) {
 	cache := map[string]*template.Template{}
 
 	var pages []string
-	err := filepath.WalkDir("./cmd/ui/templates/pages", func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir("./templates/pages", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -58,12 +58,12 @@ func NewTemplateCache() (*TemplateCache, error) {
 
 	for _, page := range pages {
 		name := filepath.Base(page)
-		ts, err := template.New(name).Funcs(functions).ParseFiles("./cmd/ui/templates/base.templ.html")
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./templates/base.templ.html")
 		if err != nil {
 			return nil, err
 		}
 
-		ts, err = ts.ParseGlob("./cmd/ui/templates/partials/*.templ.html")
+		ts, err = ts.ParseGlob("./templates/partials/*.templ.html")
 		if err != nil {
 			return nil, err
 		}
