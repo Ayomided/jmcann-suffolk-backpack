@@ -5,7 +5,7 @@ db_path := env("BACKPACK_APP_DB", "test.db")
     openssl rand -base64 32
 
 @test:
-    go test -v ./cmd/backend
+    go test -v ./internal/tests
 
 @build:
     go build -o backpack-app ./cmd/backend/main.go
