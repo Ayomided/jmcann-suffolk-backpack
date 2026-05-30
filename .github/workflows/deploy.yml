@@ -55,10 +55,10 @@ jobs:
             .github/scripts/deploy.sh \
             ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/
           rsync -avz --delete \
-            cmd/ui/templates/ \
+            templates/ \
             ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/templates/
           rsync -avz --delete \
-            cmd/ui/static/ \
+            static/ \
             ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/static/
 
       - name: Run deploy script
