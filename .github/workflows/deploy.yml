@@ -48,15 +48,27 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.HETZNER_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy binary and assets
+      - name: Rsync binary and assets
         run: |
           rsync -avz --delete \
             backpack-app \
             cmd/ui/static/ \
             cmd/ui/templates/ \
+            .github/scripts/deploy.sh \
             ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }}:/opt/backpack/
 
-      - name: Restart service
+      - name: Run deploy script
         run: |
           ssh ${{ secrets.HETZNER_USER }}@${{ secrets.HETZNER_HOST }} \
-            "sudo systemctl restart backpack"
+            "chmod +x /opt/backpack/deploy.sh && /opt/backpack/deploy.sh"
+
+      - name: Notify success
+        if: success()
+        run: |
+          echo "Deployment successful — https://backpack.adediiji.uk"
+
+      - name: Notify failure
+        if: failure()
+        run: |
+          echo "Deployment failed — app may be down"
+          exit 1
