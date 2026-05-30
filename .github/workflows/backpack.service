@@ -1,0 +1,16 @@
+[Unit]
+Description=Backpack App
+After=network.target caddy.service
+
+[Service]
+Type=simple
+User=backpack
+WorkingDirectory=/opt/backpack
+ExecStart=/opt/backpack/backpack-app -addr :3000 -db_path /opt/backpack/backpack.db
+Restart=always
+RestartSec=5
+Environment="JWT_SECRET=your-secret-here"
+Environment="SECURE_COOKIE=true"
+
+[Install]
+WantedBy=multi-user.target
