@@ -5,7 +5,7 @@
 - Go 1.26+
 - SQLite
 - [Caddy](https://caddyserver.com/docs/install#debian-ubuntu-raspbian)
-- [Just](https://just.systems/man/en/installation.html) Optional
+- [Just](https://just.systems/man/en/installation.html) _Optional_
 - A Hetzner VPS (or any Linux server)
 - A domain with an A record pointing to the server
 

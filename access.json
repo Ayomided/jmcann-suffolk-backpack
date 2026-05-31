@@ -1,0 +1,1060 @@
+[
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "63501",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/",
+      "headers": {
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Sec-Fetch-Dest": [
+          "document"
+        ],
+        "Accept": [
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        ],
+        "Sec-Fetch-Site": [
+          "none"
+        ],
+        "Priority": [
+          "u=0, i"
+        ],
+        "Cookie": [
+          "REDACTED"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15"
+        ],
+        "Sec-Fetch-Mode": [
+          "navigate"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 6,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Length": [
+        "33"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "63501",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "Priority": [
+          "u=0, i"
+        ],
+        "Sec-Fetch-Mode": [
+          "navigate"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15"
+        ],
+        "Sec-Fetch-Dest": [
+          "document"
+        ],
+        "Cookie": [
+          "REDACTED"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "Accept": [
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        ],
+        "Sec-Fetch-Site": [
+          "none"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 2,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "63501",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/static/css/global.css",
+      "headers": {
+        "Priority": [
+          "u=1, i"
+        ],
+        "Cookie": [
+          "REDACTED"
+        ],
+        "Sec-Fetch-Mode": [
+          "no-cors"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15"
+        ],
+        "Referer": [
+          "https://backpack.adediiji.uk/login"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "Accept": [
+          "text/css,*/*;q=0.1"
+        ],
+        "Sec-Fetch-Site": [
+          "same-origin"
+        ],
+        "If-Modified-Since": [
+          "Sun, 31 May 2026 18:14:16 GMT"
+        ],
+        "Sec-Fetch-Dest": [
+          "style"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 0,
+    "status": 304,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Last-Modified": [
+        "Sun, 31 May 2026 18:14:16 GMT"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "63501",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/static/img/mccann-logo.svg",
+      "headers": {
+        "Referer": [
+          "https://backpack.adediiji.uk/login"
+        ],
+        "Sec-Fetch-Dest": [
+          "image"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "Accept": [
+          "image/webp,image/avif,image/jxl,image/heic,image/heic-sequence,video/*;q=0.8,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5"
+        ],
+        "Sec-Fetch-Mode": [
+          "no-cors"
+        ],
+        "Priority": [
+          "u=5, i"
+        ],
+        "Sec-Fetch-Site": [
+          "same-origin"
+        ],
+        "Cookie": [
+          "REDACTED"
+        ],
+        "If-Modified-Since": [
+          "Sun, 31 May 2026 18:14:16 GMT"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 0,
+    "status": 304,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Last-Modified": [
+        "Sun, 31 May 2026 18:14:16 GMT"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "49714",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/favicon.ico",
+      "headers": {
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "User-Agent": [
+          "com.apple.WebKit.Networking/21624.2.5.11.4 Network/5812.160.6 macOS/26.6"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Priority": [
+          "u=7, i"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 0,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Content-Length": [
+        "33"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "49714",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/apple-touch-icon.png",
+      "headers": {
+        "Priority": [
+          "u=7, i"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "User-Agent": [
+          "com.apple.WebKit.Networking/21624.2.5.11.4 Network/5812.160.6 macOS/26.6"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Content-Length": [
+        "33"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "49714",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/apple-touch-icon-precomposed.png",
+      "headers": {
+        "User-Agent": [
+          "com.apple.WebKit.Networking/21624.2.5.11.4 Network/5812.160.6 macOS/26.6"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Priority": [
+          "u=7, i"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Length": [
+        "33"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "49714",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "User-Agent": [
+          "com.apple.WebKit.Networking/21624.2.5.11.4 Network/5812.160.6 macOS/26.6"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Priority": [
+          "u=7, i"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 2,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "49714",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "Priority": [
+          "u=7, i"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "User-Agent": [
+          "com.apple.WebKit.Networking/21624.2.5.11.4 Network/5812.160.6 macOS/26.6"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 2,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Pragma": [
+        "no-cache"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "58693",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/2.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/apple-touch-icon-precomposed.png",
+      "headers": {
+        "Accept": [
+          "*/*"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari"
+        ],
+        "Priority": [
+          "u=3"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h2",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 2,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Alt-Svc": [
+        "h3=\":443\"; ma=2592000"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Length": [
+        "33"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "49714",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/3.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "Accept-Encoding": [
+          "gzip, deflate, br, zstd"
+        ],
+        "User-Agent": [
+          "com.apple.WebKit.Networking/21624.2.5.11.4 Network/5812.160.6 macOS/26.6"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Priority": [
+          "u=7, i"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h3",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "58693",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/2.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "Priority": [
+          "u=3"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h2",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=2592000"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "58693",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/2.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/apple-touch-icon.png",
+      "headers": {
+        "Accept": [
+          "*/*"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari"
+        ],
+        "Priority": [
+          "u=3"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h2",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=2592000"
+      ],
+      "Content-Length": [
+        "33"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "58693",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/2.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "Priority": [
+          "u=3"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h2",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=2592000"
+      ],
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "58693",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/2.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/favicon.ico",
+      "headers": {
+        "Accept-Encoding": [
+          "gzip, deflate, br"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari"
+        ],
+        "Priority": [
+          "u=3"
+        ],
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h2",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 1,
+    "size": 33,
+    "status": 303,
+    "resp_headers": {
+      "Content-Length": [
+        "33"
+      ],
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Location": [
+        "/login"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=2592000"
+      ]
+    }
+  },
+  {
+    "severity": "INFO",
+    "timestamp": "2026-06-01 19:22:41 UTC",
+    "logger": "http.log.access.log0",
+    "msg": "handled request",
+    "request": {
+      "remote_ip": "86.30.90.147",
+      "remote_port": "58693",
+      "client_ip": "86.30.90.147",
+      "proto": "HTTP/2.0",
+      "method": "GET",
+      "host": "backpack.adediiji.uk",
+      "uri": "/login",
+      "headers": {
+        "Accept-Language": [
+          "en-GB,en;q=0.9"
+        ],
+        "Accept-Encoding": [
+          "gzip, deflate, br"
+        ],
+        "Accept": [
+          "*/*"
+        ],
+        "User-Agent": [
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari"
+        ],
+        "Priority": [
+          "u=3"
+        ]
+      },
+      "tls": {
+        "resumed": false,
+        "version": 772,
+        "cipher_suite": 4865,
+        "proto": "h2",
+        "server_name": "backpack.adediiji.uk",
+        "ech": false
+      }
+    },
+    "bytes_read": 0,
+    "user_id": "",
+    "duration": 2,
+    "size": 2070,
+    "status": 200,
+    "resp_headers": {
+      "Content-Type": [
+        "text/html; charset=utf-8"
+      ],
+      "Cache-Control": [
+        "no-store, no-cache, must-revalidate"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Date": [
+        "Mon, 01 Jun 2026 19:22:41 GMT"
+      ],
+      "Via": [
+        "1.1 Caddy"
+      ],
+      "Alt-Svc": [
+        "h3=\":443\"; ma=2592000"
+      ]
+    }
+  },
+]
